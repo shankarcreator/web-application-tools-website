@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter - Character & Text Analysis Tool</title>
+    <meta name="description" content="Free online word counter and text analysis tool. Count words, characters, paragraphs, sentences with reading time estimation and keyword density analysis.">
+    <meta name="keywords" content="word counter, character counter, text analysis, reading time, keyword density, writing tool">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        .ad-banner {
+            background: linear-gradient(45deg, #f3f4f6, #e5e7eb);
+            border: 2px dashed #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-weight: 500;
+            min-height: 90px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .textarea-container {
+            position: relative;
+        }
+        .keyword-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+        }
+        .keyword-item:hover {
+            transform: scale(1.05);
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Ad Banner -->
+    <div class="ad-banner mb-4">
+        <div class="text-center">
+            <i class="fas fa-ad text-2xl mb-2"></i>
+            <div>AdMob Banner Ad - Top Placement (728x90)</div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <i class="fas fa-calculator text-blue-600 text-2xl mr-3"></i>
+                    <h1 class="text-2xl font-bold text-gray-900">Word Counter</h1>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Home</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Tools</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">About</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <!-- Left Ad Banner -->
+            <div class="hidden lg:block">
+                <div class="ad-banner h-96 mb-6">
+                    <div class="text-center">
+                        <i class="fas fa-ad text-xl mb-2"></i>
+                        <div class="text-sm">AdMob Banner<br>Left Placement<br>(160x600)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="lg:col-span-2">
+                <!-- Tool Description -->
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-3">
+                        <i class="fas fa-edit text-blue-600 mr-2"></i>
+                        Professional Text Analysis Tool
+                    </h2>
+                    <p class="text-gray-600 mb-4">
+                        Analyze your text with our comprehensive word counter tool. Get real-time statistics including word count, character count, reading time estimation, and keyword density analysis. Perfect for writers, students, bloggers, and content creators.
+                    </p>
+                </div>
+
+                <!-- Text Input Area -->
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <div class="textarea-container">
+                        <label for="textInput" class="block text-sm font-medium text-gray-700 mb-2">
+                            <i class="fas fa-keyboard mr-1"></i>
+                            Enter or paste your text below:
+                        </label>
+                        <textarea 
+                            id="textInput" 
+                            placeholder="Start typing or paste your text here to see real-time analysis..."
+                            class="w-full h-64 p-4 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                            oninput="analyzeText()"
+                        ></textarea>
+                        <div class="flex justify-between items-center mt-2">
+                            <div class="text-sm text-gray-500">
+                                <span id="charLive">0</span> characters
+                            </div>
+                            <div class="flex space-x-2">
+                                <button onclick="clearText()" class="px-3 py-1 text-sm bg-gray-100 text-gray-600 rounded hover:bg-gray-200 transition-colors">
+                                    <i class="fas fa-eraser mr-1"></i>Clear
+                                </button>
+                                <button onclick="copyText()" class="px-3 py-1 text-sm bg-blue-100 text-blue-600 rounded hover:bg-blue-200 transition-colors">
+                                    <i class="fas fa-copy mr-1"></i>Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistics Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="stat-card rounded-lg p-4 text-white text-center">
+                        <div class="text-2xl font-bold" id="wordCount">0</div>
+                        <div class="text-sm opacity-90">Words</div>
+                        <i class="fas fa-file-word text-xl mt-1 opacity-75"></i>
+                    </div>
+                    <div class="stat-card rounded-lg p-4 text-white text-center">
+                        <div class="text-2xl font-bold" id="charCount">0</div>
+                        <div class="text-sm opacity-90">Characters</div>
+                        <i class="fas fa-font text-xl mt-1 opacity-75"></i>
+                    </div>
+                    <div class="stat-card rounded-lg p-4 text-white text-center">
+                        <div class="text-2xl font-bold" id="charNoSpaces">0</div>
+                        <div class="text-sm opacity-90">No Spaces</div>
+                        <i class="fas fa-compress text-xl mt-1 opacity-75"></i>
+                    </div>
+                    <div class="stat-card rounded-lg p-4 text-white text-center">
+                        <div class="text-2xl font-bold" id="paragraphCount">0</div>
+                        <div class="text-sm opacity-90">Paragraphs</div>
+                        <i class="fas fa-paragraph text-xl mt-1 opacity-75"></i>
+                    </div>
+                </div>
+
+                <!-- Detailed Analysis -->
+                <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-chart-line text-blue-600 mr-2"></i>
+                        Detailed Analysis
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Sentences:</span>
+                                    <span class="font-semibold" id="sentenceCount">0</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Reading Time:</span>
+                                    <span class="font-semibold" id="readingTime">0 min</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Speaking Time:</span>
+                                    <span class="font-semibold" id="speakingTime">0 min</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Average Words/Sentence:</span>
+                                    <span class="font-semibold" id="avgWordsPerSentence">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Longest Word:</span>
+                                    <span class="font-semibold" id="longestWord">-</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Average Word Length:</span>
+                                    <span class="font-semibold" id="avgWordLength">0</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Readability Score:</span>
+                                    <span class="font-semibold" id="readabilityScore">-</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600">Text Density:</span>
+                                    <span class="font-semibold" id="textDensity">Low</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Keyword Density -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-key text-blue-600 mr-2"></i>
+                        Top Keywords (Density Analysis)
+                    </h3>
+                    <div id="keywordList" class="space-y-2">
+                        <div class="text-gray-500 text-center py-4">
+                            <i class="fas fa-search text-2xl mb-2"></i>
+                            <div>Start typing to see keyword analysis</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Ad Banner -->
+            <div class="hidden lg:block">
+                <div class="ad-banner h-96 mb-6">
+                    <div class="text-center">
+                        <i class="fas fa-ad text-xl mb-2"></i>
+                        <div class="text-sm">AdMob Banner<br>Right Placement<br>(160x600)</div>
+                    </div>
+                </div>
+
+                <!-- Quick Tips -->
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">
+                        <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>
+                        Writing Tips
+                    </h3>
+                    <div class="space-y-3 text-sm text-gray-600">
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
+                            <div>Keep sentences under 20 words for better readability</div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
+                            <div>Use transition words to improve flow</div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
+                            <div>Aim for 2-3% keyword density for SEO</div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-check-circle text-green-500 mr-2 mt-0.5"></i>
+                            <div>Break long paragraphs into shorter ones</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Ad Banner -->
+    <div class="ad-banner mt-8">
+        <div class="text-center">
+            <i class="fas fa-ad text-2xl mb-2"></i>
+            <div>AdMob Banner Ad - Bottom Placement (728x90)</div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Web Tools</h3>
+                    <p class="text-gray-400 text-sm">Professional online tools for everyday use. Fast, secure, and free.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3">Text Tools</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Word Counter</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Case Converter</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Text to Speech</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3">Image Tools</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Image Compressor</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Resize Image</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Format Converter</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-3">Contact</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Support</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
+                © 2024 Web Application Tools. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function analyzeText() {
+            const text = document.getElementById('textInput').value;
+            
+            // Basic counts
+            const words = text.trim() ? text.trim().split(/\s+/) : [];
+            const characters = text.length;
+            const charactersNoSpaces = text.replace(/\s/g, '').length;
+            const paragraphs = text.trim() ? text.split(/\n\s*\n/).filter(p => p.trim()).length : 0;
+            const sentences = text.trim() ? text.split(/[.!?]+/).filter(s => s.trim()).length : 0;
+            
+            // Update basic stats
+            document.getElementById('wordCount').textContent = words.length;
+            document.getElementById('charCount').textContent = characters;
+            document.getElementById('charLive').textContent = characters;
+            document.getElementById('charNoSpaces').textContent = charactersNoSpaces;
+            document.getElementById('paragraphCount').textContent = paragraphs;
+            document.getElementById('sentenceCount').textContent = sentences;
+            
+            // Reading time (average 200 words per minute)
+            const readingTimeMinutes = Math.ceil(words.length / 200);
+            document.getElementById('readingTime').textContent = readingTimeMinutes + ' min';
+            
+            // Speaking time (average 130 words per minute)
+            const speakingTimeMinutes = Math.ceil(words.length / 130);
+            document.getElementById('speakingTime').textContent = speakingTimeMinutes + ' min';
+            
+            // Average words per sentence
+            const avgWordsPerSentence = sentences > 0 ? Math.round(words.length / sentences) : 0;
+            document.getElementById('avgWordsPerSentence').textContent = avgWordsPerSentence;
+            
+            // Longest word
+            const longestWord = words.length > 0 ? words.reduce((a, b) => a.length > b.length ? a : b) : '-';
+            document.getElementById('longestWord').textContent = longestWord;
+            
+            // Average word length
+            const totalChars = words.join('').length;
+            const avgWordLength = words.length > 0 ? Math.round(totalChars / words.length * 10) / 10 : 0;
+            document.getElementById('avgWordLength').textContent = avgWordLength;
+            
+            // Readability score (simplified Flesch Reading Ease)
+            if (sentences > 0 && words.length > 0) {
+                const avgSentenceLength = words.length / sentences;
+                const avgSyllables = words.reduce((acc, word) => acc + countSyllables(word), 0) / words.length;
+                const fleschScore = 206.835 - (1.015 * avgSentenceLength) - (84.6 * avgSyllables);
+                
+                let readabilityLevel = 'Very Difficult';
+                if (fleschScore >= 90) readabilityLevel = 'Very Easy';
+                else if (fleschScore >= 80) readabilityLevel = 'Easy';
+                else if (fleschScore >= 70) readabilityLevel = 'Fairly Easy';
+                else if (fleschScore >= 60) readabilityLevel = 'Standard';
+                else if (fleschScore >= 50) readabilityLevel = 'Fairly Difficult';
+                else if (fleschScore >= 30) readabilityLevel = 'Difficult';
+                
+                document.getElementById('readabilityScore').textContent = readabilityLevel;
+            } else {
+                document.getElementById('readabilityScore').textContent = '-';
+            }
+            
+            // Text density
+            let density = 'Low';
+            if (words.length > 500) density = 'High';
+            else if (words.length > 200) density = 'Medium';
+            document.getElementById('textDensity').textContent = density;
+            
+            // Keyword analysis
+            updateKeywordAnalysis(words);
+        }
+        
+        function countSyllables(word) {
+            word = word.toLowerCase();
+            if (word.length <= 3) return 1;
+            word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
+            word = word.replace(/^y/, '');
+            const matches = word.match(/[aeiouy]{1,2}/g);
+            return matches ? matches.length : 1;
+        }
+        
+        function updateKeywordAnalysis(words) {
+            if (words.length === 0) {
+                document.getElementById('keywordList').innerHTML = `
+                    <div class="text-gray-500 text-center py-4">
+                        <i class="fas fa-search text-2xl mb-2"></i>
+                        <div>Start typing to see keyword analysis</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Count word frequency (exclude common words)
+            const commonWords = new Set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must', 'can', 'this', 'that', 'these', 'those', 'i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'us', 'them']);
+            
+            const wordCount = {};
+            const totalWords = words.length;
+            
+            words.forEach(word => {
+                const cleanWord = word.toLowerCase().replace(/[^\w]/g, '');
+                if (cleanWord.length > 2 && !commonWords.has(cleanWord)) {
+                    wordCount[cleanWord] = (wordCount[cleanWord] || 0) + 1;
+                }
+            });
+            
+            // Sort by frequency and get top 10
+            const sortedWords = Object.entries(wordCount)
+                .sort(([,a], [,b]) => b - a)
+                .slice(0, 10);
+            
+            if (sortedWords.length === 0) {
+                document.getElementById('keywordList').innerHTML = `
+                    <div class="text-gray-500 text-center py-4">
+                        <i class="fas fa-info-circle text-2xl mb-2"></i>
+                        <div>No significant keywords found</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            const keywordHTML = sortedWords.map(([word, count]) => {
+                const percentage = ((count / totalWords) * 100).toFixed(1);
+                const barWidth = Math.max((count / sortedWords[0][1]) * 100, 10);
+                
+                return `
+                    <div class="keyword-item rounded-lg p-3 text-white mb-2">
+                        <div class="flex justify-between items-center mb-1">
+                            <span class="font-medium capitalize">${word}</span>
+                            <span class="text-sm opacity-90">${count} times (${percentage}%)</span>
+                        </div>
+                        <div class="w-full bg-white bg-opacity-20 rounded-full h-1.5">
+                            <div class="progress-bar h-1.5 rounded-full bg-white bg-opacity-60" style="width: ${barWidth}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            document.getElementById('keywordList').innerHTML = keywordHTML;
+        }
+        
+        function clearText() {
+            document.getElementById('textInput').value = '';
+            analyzeText();
+        }
+        
+        function copyText() {
+            const textArea = document.getElementById('textInput');
+            textArea.select();
+            document.execCommand('copy');
+            
+            // Show feedback
+            const button = event.target.closest('button');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check mr-1"></i>Copied!';
+            button.classList.remove('bg-blue-100', 'text-blue-600', 'hover:bg-blue-200');
+            button.classList.add('bg-green-100', 'text-green-600');
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.classList.remove('bg-green-100', 'text-green-600');
+                button.classList.add('bg-blue-100', 'text-blue-600', 'hover:bg-blue-200');
+            }, 2000);
+        }
+        
+        // Initialize
+        analyzeText();
+    </script>
+</body>
+</html>
