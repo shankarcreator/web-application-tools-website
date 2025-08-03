@@ -1,0 +1,2171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebToolsHub - 100+ Free Online Tools | All-in-One Web Utilities</title>
+    <meta name="description" content="Free online tools platform with 100+ utilities including image compressor, PDF converter, QR generator, text tools, calculators, and more. No registration required.">
+    <meta name="keywords" content="online tools, free tools, image compressor, PDF converter, QR generator, text tools, calculators, web utilities">
+    <meta name="author" content="WebToolsHub">
+    <meta property="og:title" content="WebToolsHub - 100+ Free Online Tools">
+    <meta property="og:description" content="All-in-one platform for free online tools. Compress images, convert PDFs, generate QR codes, and access 100+ utilities.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛠️</text></svg>">
+    
+    <!-- External Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        /* Custom styles */
+        .tool-card { transition: all 0.3s ease; }
+        .tool-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .glass-effect { backdrop-filter: blur(10px); background: rgba(255,255,255,0.1); }
+        .active-tab { background: #667eea; color: white; }
+        .tool-section { display: none; }
+        .tool-section.active { display: block; }
+        .drag-drop-area { border: 2px dashed #ccc; transition: all 0.3s ease; }
+        .drag-drop-area.dragover { border-color: #667eea; background: rgba(102, 126, 234, 0.1); }
+        .loading { opacity: 0.6; pointer-events: none; }
+        
+        /* AdMob placeholder styles */
+        .admob-banner { 
+            width: 100%; 
+            height: 60px; 
+            background: linear-gradient(45deg, #f0f0f0, #e0e0e0); 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: #666; 
+            font-size: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        
+        .admob-interstitial-trigger {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px dashed #667eea;
+            padding: 20px;
+            text-align: center;
+            color: #667eea;
+            font-size: 14px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- AdMob Banner Top -->
+    <div class="admob-banner">
+        AdMob Banner Ad Space (320x50 or 728x90)
+    </div>
+
+    <!-- Header -->
+    <header class="gradient-bg text-white py-6 shadow-lg">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold text-center mb-2">
+                <i class="fas fa-tools mr-3"></i>WebToolsHub
+            </h1>
+            <p class="text-center text-blue-100">100+ Free Online Tools - No Registration Required</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-center py-4 space-x-2">
+                <button onclick="showSection('image')" class="tab-btn px-4 py-2 rounded-lg font-medium transition-colors bg-blue-600 text-white">
+                    <i class="fas fa-image mr-2"></i>Image Tools
+                </button>
+                <button onclick="showSection('pdf')" class="tab-btn px-4 py-2 rounded-lg font-medium transition-colors hover:bg-gray-100">
+                    <i class="fas fa-file-pdf mr-2"></i>PDF Tools
+                </button>
+                <button onclick="showSection('text')" class="tab-btn px-4 py-2 rounded-lg font-medium transition-colors hover:bg-gray-100">
+                    <i class="fas fa-font mr-2"></i>Text Tools
+                </button>
+                <button onclick="showSection('qr')" class="tab-btn px-4 py-2 rounded-lg font-medium transition-colors hover:bg-gray-100">
+                    <i class="fas fa-qrcode mr-2"></i>QR & Barcode
+                </button>
+                <button onclick="showSection('calculator')" class="tab-btn px-4 py-2 rounded-lg font-medium transition-colors hover:bg-gray-100">
+                    <i class="fas fa-calculator mr-2"></i>Calculators
+                </button>
+                <button onclick="showSection('developer')" class="tab-btn px-4 py-2 rounded-lg font-medium transition-colors hover:bg-gray-100">
+                    <i class="fas fa-code mr-2"></i>Developer
+                </button>
+                <button onclick="showSection('utility')" class="tab-btn px-4 py-2 rounded-lg font-medium transition-colors hover:bg-gray-100">
+                    <i class="fas fa-wrench mr-2"></i>Utilities
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- Image Tools Section -->
+        <section id="image" class="tool-section active">
+            <h2 class="text-3xl font-bold mb-6 text-center">Image Tools</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Image Compressor -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-compress-alt mr-2 text-blue-600"></i>Image Compressor
+                    </h3>
+                    <div class="drag-drop-area p-6 text-center rounded-lg mb-4" onclick="document.getElementById('imageFile').click()">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 mb-2"></i>
+                        <p>Click or drag image here</p>
+                        <input type="file" id="imageFile" accept="image/*" class="hidden" onchange="compressImage(this)">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Compression Level:</label>
+                        <select id="compressionLevel" class="w-full p-2 border rounded">
+                            <option value="0.9">Low (90%)</option>
+                            <option value="0.7" selected>Medium (70%)</option>
+                            <option value="0.5">High (50%)</option>
+                            <option value="0.3">Very High (30%)</option>
+                        </select>
+                    </div>
+                    <div id="imageResult" class="hidden">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm font-medium">Original</p>
+                                <canvas id="originalCanvas" class="w-full border rounded"></canvas>
+                                <p id="originalSize" class="text-xs text-gray-600 mt-1"></p>
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium">Compressed</p>
+                                <canvas id="compressedCanvas" class="w-full border rounded"></canvas>
+                                <p id="compressedSize" class="text-xs text-gray-600 mt-1"></p>
+                            </div>
+                        </div>
+                        <button onclick="downloadCompressedImage()" class="w-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                            <i class="fas fa-download mr-2"></i>Download
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Image Resizer -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-expand-arrows-alt mr-2 text-green-600"></i>Image Resizer
+                    </h3>
+                    <input type="file" id="resizeImageFile" accept="image/*" class="w-full p-2 border rounded mb-4" onchange="loadImageForResize(this)">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Width:</label>
+                            <input type="number" id="resizeWidth" class="w-full p-2 border rounded" placeholder="Width">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Height:</label>
+                            <input type="number" id="resizeHeight" class="w-full p-2 border rounded" placeholder="Height">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="maintainAspect" checked class="mr-2">
+                            <span class="text-sm">Maintain aspect ratio</span>
+                        </label>
+                    </div>
+                    <button onclick="resizeImage()" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 mb-4">
+                        <i class="fas fa-resize mr-2"></i>Resize Image
+                    </button>
+                    <canvas id="resizeCanvas" class="w-full border rounded hidden"></canvas>
+                    <button id="downloadResized" onclick="downloadResizedImage()" class="w-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 hidden">
+                        <i class="fas fa-download mr-2"></i>Download Resized
+                    </button>
+                </div>
+
+                <!-- Image Converter -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-exchange-alt mr-2 text-purple-600"></i>Image Converter
+                    </h3>
+                    <input type="file" id="convertImageFile" accept="image/*" class="w-full p-2 border rounded mb-4" onchange="loadImageForConvert(this)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Convert to:</label>
+                        <select id="convertFormat" class="w-full p-2 border rounded">
+                            <option value="jpeg">JPEG</option>
+                            <option value="png">PNG</option>
+                            <option value="webp">WebP</option>
+                        </select>
+                    </div>
+                    <button onclick="convertImage()" class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 mb-4">
+                        <i class="fas fa-convert mr-2"></i>Convert Image
+                    </button>
+                    <canvas id="convertCanvas" class="w-full border rounded hidden"></canvas>
+                    <button id="downloadConverted" onclick="downloadConvertedImage()" class="w-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 hidden">
+                        <i class="fas fa-download mr-2"></i>Download Converted
+                    </button>
+                </div>
+
+                <!-- Color Picker -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-palette mr-2 text-pink-600"></i>Color Picker
+                    </h3>
+                    <input type="color" id="colorPicker" class="w-full h-20 border rounded mb-4" value="#667eea" onchange="updateColorInfo()">
+                    <div id="colorInfo" class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="font-medium">HEX:</span>
+                            <span id="hexValue">#667eea</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-medium">RGB:</span>
+                            <span id="rgbValue">rgb(102, 126, 234)</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="font-medium">HSL:</span>
+                            <span id="hslValue">hsl(228, 75%, 66%)</span>
+                        </div>
+                    </div>
+                    <button onclick="copyColorValue()" class="w-full mt-4 bg-pink-600 text-white py-2 rounded hover:bg-pink-700">
+                        <i class="fas fa-copy mr-2"></i>Copy HEX
+                    </button>
+                </div>
+
+                <!-- Image Cropper -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-crop mr-2 text-yellow-600"></i>Image Cropper
+                    </h3>
+                    <input type="file" id="cropImageFile" accept="image/*" class="w-full p-2 border rounded mb-4" onchange="loadImageForCrop(this)">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Aspect Ratio:</label>
+                        <select id="aspectRatio" class="w-full p-2 border rounded">
+                            <option value="free">Free</option>
+                            <option value="1:1">Square (1:1)</option>
+                            <option value="16:9">Widescreen (16:9)</option>
+                            <option value="4:3">Standard (4:3)</option>
+                        </select>
+                    </div>
+                    <canvas id="cropCanvas" class="w-full border rounded hidden"></canvas>
+                    <button id="downloadCropped" onclick="downloadCroppedImage()" class="w-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 hidden">
+                        <i class="fas fa-download mr-2"></i>Download Cropped
+                    </button>
+                </div>
+
+                <!-- Image Effects -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-magic mr-2 text-indigo-600"></i>Image Effects
+                    </h3>
+                    <input type="file" id="effectImageFile" accept="image/*" class="w-full p-2 border rounded mb-4" onchange="loadImageForEffects(this)">
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="applyFilter('grayscale')" class="bg-gray-600 text-white py-2 rounded text-sm">Grayscale</button>
+                        <button onclick="applyFilter('sepia')" class="bg-yellow-600 text-white py-2 rounded text-sm">Sepia</button>
+                        <button onclick="applyFilter('blur')" class="bg-blue-600 text-white py-2 rounded text-sm">Blur</button>
+                        <button onclick="applyFilter('brightness')" class="bg-orange-600 text-white py-2 rounded text-sm">Bright</button>
+                    </div>
+                    <canvas id="effectCanvas" class="w-full border rounded hidden"></canvas>
+                    <button id="downloadEffect" onclick="downloadEffectImage()" class="w-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 hidden">
+                        <i class="fas fa-download mr-2"></i>Download
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PDF Tools Section -->
+        <section id="pdf" class="tool-section">
+            <h2 class="text-3xl font-bold mb-6 text-center">PDF Tools</h2>
+            
+            <!-- AdMob Interstitial Trigger -->
+            <div class="admob-interstitial-trigger">
+                📱 AdMob Interstitial Ad will show here when integrated with mobile app
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Text to PDF -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-file-pdf mr-2 text-red-600"></i>Text to PDF
+                    </h3>
+                    <textarea id="pdfText" class="w-full h-32 p-3 border rounded mb-4" placeholder="Enter your text here..."></textarea>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Page Size:</label>
+                        <select id="pageSize" class="w-full p-2 border rounded">
+                            <option value="a4">A4</option>
+                            <option value="letter">Letter</option>
+                            <option value="legal">Legal</option>
+                        </select>
+                    </div>
+                    <button onclick="generatePDF()" class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700">
+                        <i class="fas fa-file-pdf mr-2"></i>Generate PDF
+                    </button>
+                </div>
+
+                <!-- PDF Merger -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-layer-group mr-2 text-blue-600"></i>PDF Merger
+                    </h3>
+                    <div class="drag-drop-area p-4 text-center rounded-lg mb-4" onclick="document.getElementById('pdfFiles').click()">
+                        <i class="fas fa-plus-circle text-2xl text-gray-400 mb-2"></i>
+                        <p class="text-sm">Select multiple PDF files</p>
+                        <input type="file" id="pdfFiles" accept=".pdf" multiple class="hidden">
+                    </div>
+                    <div id="pdfFileList" class="mb-4 space-y-2"></div>
+                    <button onclick="mergePDFs()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                        <i class="fas fa-compress mr-2"></i>Merge PDFs
+                    </button>
+                </div>
+
+                <!-- Image to PDF -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-images mr-2 text-green-600"></i>Images to PDF
+                    </h3>
+                    <input type="file" id="imagesToPdf" accept="image/*" multiple class="w-full p-2 border rounded mb-4">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Layout:</label>
+                        <select id="imageLayout" class="w-full p-2 border rounded">
+                            <option value="single">One image per page</option>
+                            <option value="grid">Grid layout</option>
+                        </select>
+                    </div>
+                    <button onclick="imagesToPDF()" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+                        <i class="fas fa-file-pdf mr-2"></i>Create PDF
+                    </button>
+                </div>
+
+                <!-- PDF Page Counter -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-file-alt mr-2 text-purple-600"></i>PDF Info
+                    </h3>
+                    <input type="file" id="pdfInfo" accept=".pdf" class="w-full p-2 border rounded mb-4" onchange="getPDFInfo(this)">
+                    <div id="pdfInfoResult" class="hidden">
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between">
+                                <span class="font-medium">Pages:</span>
+                                <span id="pdfPages">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium">Size:</span>
+                                <span id="pdfSize">-</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="font-medium">Title:</span>
+                                <span id="pdfTitle">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- URL to PDF -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-link mr-2 text-orange-600"></i>URL to PDF
+                    </h3>
+                    <input type="url" id="urlToPdf" class="w-full p-3 border rounded mb-4" placeholder="Enter website URL...">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Paper Size:</label>
+                        <select id="urlPdfSize" class="w-full p-2 border rounded">
+                            <option value="a4">A4</option>
+                            <option value="letter">Letter</option>
+                            <option value="a3">A3</option>
+                        </select>
+                    </div>
+                    <button onclick="urlToPDF()" class="w-full bg-orange-600 text-white py-2 rounded hover:bg-orange-700">
+                        <i class="fas fa-download mr-2"></i>Convert to PDF
+                    </button>
+                    <p class="text-xs text-gray-500 mt-2">Note: This feature requires a backend service for full functionality</p>
+                </div>
+
+                <!-- HTML to PDF -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-code mr-2 text-teal-600"></i>HTML to PDF
+                    </h3>
+                    <textarea id="htmlContent" class="w-full h-32 p-3 border rounded mb-4" placeholder="Enter HTML content..."></textarea>
+                    <button onclick="htmlToPDF()" class="w-full bg-teal-600 text-white py-2 rounded hover:bg-teal-700">
+                        <i class="fas fa-file-pdf mr-2"></i>Convert HTML
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Text Tools Section -->
+        <section id="text" class="tool-section">
+            <h2 class="text-3xl font-bold mb-6 text-center">Text Tools</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Word Counter -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-font mr-2 text-blue-600"></i>Word Counter
+                    </h3>
+                    <textarea id="wordCountText" class="w-full h-32 p-3 border rounded mb-4" placeholder="Type or paste your text here..." oninput="countWords()"></textarea>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="text-2xl font-bold text-blue-600" id="wordCount">0</div>
+                            <div class="text-sm text-gray-600">Words</div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="text-2xl font-bold text-green-600" id="charCount">0</div>
+                            <div class="text-sm text-gray-600">Characters</div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-center mt-4">
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="text-lg font-bold text-purple-600" id="sentenceCount">0</div>
+                            <div class="text-sm text-gray-600">Sentences</div>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded">
+                            <div class="text-lg font-bold text-orange-600" id="paragraphCount">0</div>
+                            <div class="text-sm text-gray-600">Paragraphs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Case Converter -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-text-height mr-2 text-green-600"></i>Case Converter
+                    </h3>
+                    <textarea id="caseText" class="w-full h-32 p-3 border rounded mb-4" placeholder="Enter text to convert..."></textarea>
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="convertCase('upper')" class="bg-red-600 text-white py-2 rounded text-sm">UPPERCASE</button>
+                        <button onclick="convertCase('lower')" class="bg-blue-600 text-white py-2 rounded text-sm">lowercase</button>
+                        <button onclick="convertCase('title')" class="bg-green-600 text-white py-2 rounded text-sm">Title Case</button>
+                        <button onclick="convertCase('sentence')" class="bg-purple-600 text-white py-2 rounded text-sm">Sentence case</button>
+                    </div>
+                    <textarea id="caseResult" class="w-full h-24 p-3 border rounded bg-gray-50" readonly></textarea>
+                    <button onclick="copyCaseResult()" class="w-full mt-4 bg-gray-600 text-white py-2 rounded hover:bg-gray-700">
+                        <i class="fas fa-copy mr-2"></i>Copy Result
+                    </button>
+                </div>
+
+                <!-- Text Replacer -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-exchange-alt mr-2 text-purple-600"></i>Find & Replace
+                    </h3>
+                    <textarea id="replaceText" class="w-full h-24 p-3 border rounded mb-4" placeholder="Enter your text..."></textarea>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <input type="text" id="findText" class="p-2 border rounded" placeholder="Find...">
+                        <input type="text" id="replaceWith" class="p-2 border rounded" placeholder="Replace with...">
+                    </div>
+                    <div class="mb-4">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="caseSensitive" class="mr-2">
+                            <span class="text-sm">Case sensitive</span>
+                        </label>
+                    </div>
+                    <button onclick="replaceText()" class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 mb-4">
+                        <i class="fas fa-sync mr-2"></i>Replace All
+                    </button>
+                    <textarea id="replaceResult" class="w-full h-24 p-3 border rounded bg-gray-50" readonly></textarea>
+                </div>
+
+                <!-- Lorem Ipsum Generator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-paragraph mr-2 text-yellow-600"></i>Lorem Ipsum
+                    </h3>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Generate:</label>
+                        <select id="loremType" class="w-full p-2 border rounded mb-2">
+                            <option value="paragraphs">Paragraphs</option>
+                            <option value="words">Words</option>
+                            <option value="sentences">Sentences</option>
+                        </select>
+                        <input type="number" id="loremCount" class="w-full p-2 border rounded" value="3" min="1" max="50">
+                    </div>
+                    <button onclick="generateLorem()" class="w-full bg-yellow-600 text-white py-2 rounded hover:bg-yellow-700 mb-4">
+                        <i class="fas fa-magic mr-2"></i>Generate Lorem
+                    </button>
+                    <textarea id="loremResult" class="w-full h-32 p-3 border rounded bg-gray-50" readonly></textarea>
+                    <button onclick="copyLorem()" class="w-full mt-4 bg-gray-600 text-white py-2 rounded hover:bg-gray-700">
+                        <i class="fas fa-copy mr-2"></i>Copy Text
+                    </button>
+                </div>
+
+                <!-- Text Reverser -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-undo mr-2 text-pink-600"></i>Text Reverser
+                    </h3>
+                    <textarea id="reverseText" class="w-full h-32 p-3 border rounded mb-4" placeholder="Enter text to reverse..." oninput="reverseTextInput()"></textarea>
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="reverseType('chars')" class="bg-pink-600 text-white py-2 rounded text-sm">Reverse Characters</button>
+                        <button onclick="reverseType('words')" class="bg-purple-600 text-white py-2 rounded text-sm">Reverse Words</button>
+                    </div>
+                    <textarea id="reverseResult" class="w-full h-32 p-3 border rounded bg-gray-50" readonly></textarea>
+                </div>
+
+                <!-- Line Sorter -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-sort-alpha-down mr-2 text-indigo-600"></i>Line Sorter
+                    </h3>
+                    <textarea id="sortText" class="w-full h-32 p-3 border rounded mb-4" placeholder="Enter lines to sort..."></textarea>
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="sortLines('asc')" class="bg-indigo-600 text-white py-2 rounded text-sm">Sort A-Z</button>
+                        <button onclick="sortLines('desc')" class="bg-red-600 text-white py-2 rounded text-sm">Sort Z-A</button>
+                    </div>
+                    <div class="mb-4">
+                        <label class="flex items-center">
+                            <input type="checkbox" id="removeDuplicates" class="mr-2">
+                            <span class="text-sm">Remove duplicates</span>
+                        </label>
+                    </div>
+                    <textarea id="sortResult" class="w-full h-32 p-3 border rounded bg-gray-50" readonly></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- QR & Barcode Section -->
+        <section id="qr" class="tool-section">
+            <h2 class="text-3xl font-bold mb-6 text-center">QR & Barcode Tools</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- QR Code Generator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-qrcode mr-2 text-blue-600"></i>QR Code Generator
+                    </h3>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Content Type:</label>
+                        <select id="qrType" class="w-full p-2 border rounded mb-2" onchange="changeQRType()">
+                            <option value="text">Text</option>
+                            <option value="url">URL</option>
+                            <option value="email">Email</option>
+                            <option value="phone">Phone</option>
+                            <option value="sms">SMS</option>
+                            <option value="wifi">WiFi</option>
+                        </select>
+                    </div>
+                    <div id="qrInputs">
+                        <textarea id="qrText" class="w-full h-24 p-3 border rounded mb-4" placeholder="Enter text..."></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Size:</label>
+                            <select id="qrSize" class="w-full p-2 border rounded">
+                                <option value="200">200x200</option>
+                                <option value="300">300x300</option>
+                                <option value="400">400x400</option>
+                                <option value="500">500x500</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Color:</label>
+                            <input type="color" id="qrColor" class="w-full h-10 border rounded" value="#000000">
+                        </div>
+                    </div>
+                    <button onclick="generateQR()" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 mb-4">
+                        <i class="fas fa-qrcode mr-2"></i>Generate QR Code
+                    </button>
+                    <div id="qrResult" class="text-center hidden">
+                        <canvas id="qrCanvas" class="mx-auto border rounded"></canvas>
+                        <button onclick="downloadQR()" class="w-full mt-4 bg-green-600 text-white py-2 rounded hover:bg-green-700">
+                            <i class="fas fa-download mr-2"></i>Download PNG
+                        </button>
+                    </div>
+                </div>
+
+                <!-- QR Code Scanner -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-camera mr-2 text-green-600"></i>QR Code Scanner
+                    </h3>
+                    <div class="text-center mb-4">
+                        <input type="file" id="qrScanFile" accept="image/*" class="hidden" onchange="scanQRCode(this)">
+                        <button onclick="document.getElementById('qrScanFile').click()" class="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700">
+                            <i class="fas fa-upload mr-2"></i>Upload QR Image
+                        </button>
+                    </div>
+                    <div class="text-center mb-4">
+                        <button onclick="startCamera()" class="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700">
+                            <i class="fas fa-camera mr-2"></i>Use Camera
+                        </button>
+                    </div>
+                    <video id="qrVideo" class="w-full hidden" autoplay></video>
+                    <canvas id="qrScanCanvas" class="w-full hidden"></canvas>
+                    <div id="qrScanResult" class="mt-4 p-3 bg-gray-50 rounded hidden">
+                        <p class="font-medium">Scanned Result:</p>
+                        <p id="qrScanText" class="break-all"></p>
+                        <button onclick="copyQRResult()" class="mt-2 bg-gray-600 text-white px-4 py-2 rounded text-sm">
+                            <i class="fas fa-copy mr-2"></i>Copy
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Barcode Generator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-barcode mr-2 text-purple-600"></i>Barcode Generator
+                    </h3>
+                    <input type="text" id="barcodeText" class="w-full p-3 border rounded mb-4" placeholder="Enter text or number...">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Barcode Type:</label>
+                        <select id="barcodeType" class="w-full p-2 border rounded">
+                            <option value="CODE128">Code 128</option>
+                            <option value="EAN13">EAN-13</option>
+                            <option value="EAN8">EAN-8</option>
+                            <option value="CODE39">Code 39</option>
+                        </select>
+                    </div>
+                    <button onclick="generateBarcode()" class="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 mb-4">
+                        <i class="fas fa-barcode mr-2"></i>Generate Barcode
+                    </button>
+                    <div id="barcodeResult" class="text-center hidden">
+                        <canvas id="barcodeCanvas" class="mx-auto border rounded"></canvas>
+                        <button onclick="downloadBarcode()" class="w-full mt-4 bg-green-600 text-white py-2 rounded hover:bg-green-700">
+                            <i class="fas fa-download mr-2"></i>Download PNG
+                        </button>
+                    </div>
+                </div>
+
+                <!-- WiFi QR Generator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-wifi mr-2 text-orange-600"></i>WiFi QR Code
+                    </h3>
+                    <div class="space-y-4">
+                        <input type="text" id="wifiSSID" class="w-full p-3 border rounded" placeholder="WiFi Network Name (SSID)">
+                        <input type="password" id="wifiPassword" class="w-full p-3 border rounded" placeholder="WiFi Password">
+                        <select id="wifiSecurity" class="w-full p-2 border rounded">
+                            <option value="WPA">WPA/WPA2</option>
+                            <option value="WEP">WEP</option>
+                            <option value="nopass">No Password</option>
+                        </select>
+                        <label class="flex items-center">
+                            <input type="checkbox" id="wifiHidden" class="mr-2">
+                            <span class="text-sm">Hidden Network</span>
+                        </label>
+                    </div>
+                    <button onclick="generateWiFiQR()" class="w-full mt-4 bg-orange-600 text-white py-2 rounded hover:bg-orange-700">
+                        <i class="fas fa-qrcode mr-2"></i>Generate WiFi QR
+                    </button>
+                    <div id="wifiQRResult" class="text-center hidden mt-4">
+                        <canvas id="wifiQRCanvas" class="mx-auto border rounded"></canvas>
+                        <button onclick="downloadWiFiQR()" class="w-full mt-4 bg-green-600 text-white py-2 rounded hover:bg-green-700">
+                            <i class="fas fa-download mr-2"></i>Download
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bulk QR Generator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-layer-group mr-2 text-teal-600"></i>Bulk QR Generator
+                    </h3>
+                    <textarea id="bulkQRText" class="w-full h-32 p-3 border rounded mb-4" placeholder="Enter multiple lines (one QR per line)..."></textarea>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Output Format:</label>
+                        <select id="bulkQRFormat" class="w-full p-2 border rounded">
+                            <option value="zip">ZIP Archive</option>
+                            <option value="pdf">PDF Document</option>
+                        </select>
+                    </div>
+                    <button onclick="generateBulkQR()" class="w-full bg-teal-600 text-white py-2 rounded hover:bg-teal-700">
+                        <i class="fas fa-download mr-2"></i>Generate & Download
+                    </button>
+                    <div id="bulkQRProgress" class="hidden mt-4">
+                        <div class="bg-gray-200 rounded-full h-2">
+                            <div id="bulkQRProgressBar" class="bg-teal-600 h-2 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <p id="bulkQRStatus" class="text-sm text-center mt-2">Processing...</p>
+                    </div>
+                </div>
+
+                <!-- QR Code Customizer -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-palette mr-2 text-pink-600"></i>Custom QR Code
+                    </h3>
+                    <input type="text" id="customQRText" class="w-full p-3 border rounded mb-4" placeholder="Enter text...">
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Foreground:</label>
+                            <input type="color" id="customQRFg" class="w-full h-10 border rounded" value="#000000">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Background:</label>
+                            <input type="color" id="customQRBg" class="w-full h-10 border rounded" value="#FFFFFF">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium mb-2">Error Correction:</label>
+                        <select id="customQRError" class="w-full p-2 border rounded">
+                            <option value="L">Low (~7%)</option>
+                            <option value="M">Medium (~15%)</option>
+                            <option value="Q">Quartile (~25%)</option>
+                            <option value="H">High (~30%)</option>
+                        </select>
+                    </div>
+                    <button onclick="generateCustomQR()" class="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700 mb-4">
+                        <i class="fas fa-magic mr-2"></i>Generate Custom QR
+                    </button>
+                    <div id="customQRResult" class="text-center hidden">
+                        <canvas id="customQRCanvas" class="mx-auto border rounded"></canvas>
+                        <button onclick="downloadCustomQR()" class="w-full mt-4 bg-green-600 text-white py-2 rounded hover:bg-green-700">
+                            <i class="fas fa-download mr-2"></i>Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculators Section -->
+        <section id="calculator" class="tool-section">
+            <h2 class="text-3xl font-bold mb-6 text-center">Calculators</h2>
+            
+            <!-- AdMob Banner -->
+            <div class="admob-banner">
+                📱 AdMob Banner Ad Space - Perfect for calculator section
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Basic Calculator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-calculator mr-2 text-blue-600"></i>Basic Calculator
+                    </h3>
+                    <div class="bg-gray-900 text-white p-4 rounded mb-4">
+                        <input type="text" id="calcDisplay" class="w-full bg-transparent text-right text-2xl font-mono" readonly value="0">
+                    </div>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button onclick="clearCalc()" class="calc-btn bg-red-500 text-white p-3 rounded hover:bg-red-600">C</button>
+                        <button onclick="appendToCalc('/')" class="calc-btn bg-orange-500 text-white p-3 rounded hover:bg-orange-600">÷</button>
+                        <button onclick="appendToCalc('*')" class="calc-btn bg-orange-500 text-white p-3 rounded hover:bg-orange-600">×</button>
+                        <button onclick="deleteLast()" class="calc-btn bg-gray-500 text-white p-3 rounded hover:bg-gray-600">⌫</button>
+                        
+                        <button onclick="appendToCalc('7')" class="calc-btn bg-gray-200 p-3 rounded hover:bg-gray-300">7</button>
+                        <button onclick="appendToCalc('8')" class="calc-btn bg-gray-200 p-3 rounded hover:bg-gray-300">8</button>
+                        <button onclick="appendToCalc('9')" class="calc-btn bg-gray-200 p-3 rounded hover:bg-gray-300">9</button>
+                        <button onclick="appendToCalc('-')" class="calc-btn bg-orange-500 text-white p-3 rounded hover:bg-orange-600">-</button>
+                        
+                        <button onclick="appendToCalc('4')" class="calc-btn bg-gray-200 p-3 rounded hover:bg-gray-300">4</button>
+                        <button onclick="appendToCalc('5')" class="calc-btn bg-gray-200 p-3 rounded hover:bg-gray-300">5</button>
+                        <button onclick="appendToCalc('6')" class="calc-btn bg-gray-200 p-3 rounded hover:bg-gray-300">6</button>
+                        <button onclick="appendToCalc('+')" class="calc-btn bg-orange-500 text-white p-3 rounded hover:bg-orange-600">+</button>
+                        
+                        <button onclick="appendToCalc('1')" class="calc-btn bg-gray-200 p-3 rounded hover:bg-gray-300">1</button>
+                        <button onclick="appendToCalc('2')" class="calc-btn bg-gray-200 p-3 rounded hover:bg-gray-300">2</button>
+                        <button onclick="appendToCalc('3')" class="calc-btn bg-gray-200 p-3 rounded hover:bg-gray-300">3</button>
+                        <button onclick="calculateResult()" class="calc-btn bg-green-500 text-white p-3 rounded hover:bg-green-600 row-span-2">=</button>
+                        
+                        <button onclick="appendToCalc('0')" class="calc-btn bg-gray-200 p-3 rounded hover:bg-gray-300 col-span-2">0</button>
+                        <button onclick="appendToCalc('.')" class="calc-btn bg-gray-200 p-3 rounded hover:bg-gray-300">.</button>
+                    </div>
+                </div>
+
+                <!-- BMI Calculator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-weight mr-2 text-green-600"></i>BMI Calculator
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Weight (kg):</label>
+                            <input type="number" id="bmiWeight" class="w-full p-3 border rounded" placeholder="Enter weight">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Height (cm):</label>
+                            <input type="number" id="bmiHeight" class="w-full p-3 border rounded" placeholder="Enter height">
+                        </div>
+                        <button onclick="calculateBMI()" class="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700">
+                            <i class="fas fa-calculator mr-2"></i>Calculate BMI
+                        </button>
+                        <div id="bmiResult" class="hidden">
+                            <div class="bg-gray-50 p-4 rounded">
+                                <div class="text-center">
+                                    <div class="text-3xl font-bold text-blue-600" id="bmiValue"></div>
+                                    <div class="text-lg font-medium" id="bmiCategory"></div>
+                                    <div class="text-sm text-gray-600 mt-2" id="bmiDescription"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Age Calculator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-birthday-cake mr-2 text-purple-600"></i>Age Calculator
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Birth Date:</label>
+                            <input type="date" id="birthDate" class="w-full p-3 border rounded">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Calculate to Date:</label>
+                            <input type="date" id="calcDate" class="w-full p-3 border rounded">
+                        </div>
+                        <button onclick="calculateAge()" class="w-full bg-purple-600 text-white py-3 rounded hover:bg-purple-700">
+                            <i class="fas fa-calculator mr-2"></i>Calculate Age
+                        </button>
+                        <div id="ageResult" class="hidden">
+                            <div class="bg-gray-50 p-4 rounded space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="font-medium">Years:</span>
+                                    <span id="ageYears">0</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium">Months:</span>
+                                    <span id="ageMonths">0</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium">Days:</span>
+                                    <span id="ageDays">0</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium">Total Days:</span>
+                                    <span id="ageTotalDays">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Percentage Calculator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-percent mr-2 text-orange-600"></i>Percentage Calculator
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">What is % of ?</label>
+                            <div class="grid grid-cols-3 gap-2 items-center">
+                                <input type="number" id="percent1" class="p-2 border rounded" placeholder="%">
+                                <span class="text-center">of</span>
+                                <input type="number" id="value1" class="p-2 border rounded" placeholder="value">
+                            </div>
+                            <button onclick="calculatePercentOf()" class="w-full mt-2 bg-orange-600 text-white py-2 rounded hover:bg-orange-700">
+                                Calculate
+                            </button>
+                            <div id="percentOfResult" class="mt-2 p-2 bg-gray-50 rounded hidden"></div>
+                        </div>
+                        
+                        <div class="border-t pt-4">
+                            <label class="block text-sm font-medium mb-2">What % of is ?</label>
+                            <div class="grid grid-cols-3 gap-2 items-center">
+                                <input type="number" id="value2" class="p-2 border rounded" placeholder="value">
+                                <span class="text-center">of</span>
+                                <input type="number" id="total2" class="p-2 border rounded" placeholder="total">
+                            </div>
+                            <button onclick="calculateWhatPercent()" class="w-full mt-2 bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                                Calculate
+                            </button>
+                            <div id="whatPercentResult" class="mt-2 p-2 bg-gray-50 rounded hidden"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Loan Calculator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-home mr-2 text-teal-600"></i>Loan Calculator
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Loan Amount ($):</label>
+                            <input type="number" id="loanAmount" class="w-full p-3 border rounded" placeholder="Enter loan amount">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Interest Rate (% per year):</label>
+                            <input type="number" id="loanRate" class="w-full p-3 border rounded" placeholder="Enter interest rate" step="0.01">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Loan Term (years):</label>
+                            <input type="number" id="loanTerm" class="w-full p-3 border rounded" placeholder="Enter loan term">
+                        </div>
+                        <button onclick="calculateLoan()" class="w-full bg-teal-600 text-white py-3 rounded hover:bg-teal-700">
+                            <i class="fas fa-calculator mr-2"></i>Calculate Payment
+                        </button>
+                        <div id="loanResult" class="hidden">
+                            <div class="bg-gray-50 p-4 rounded space-y-2">
+                                <div class="flex justify-between">
+                                    <span class="font-medium">Monthly Payment:</span>
+                                    <span id="monthlyPayment" class="font-bold text-green-600"></span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium">Total Payment:</span>
+                                    <span id="totalPayment"></span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="font-medium">Total Interest:</span>
+                                    <span id="totalInterest" class="text-red-600"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Currency Converter -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-exchange-alt mr-2 text-indigo-600"></i>Currency Converter
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Amount:</label>
+                            <input type="number" id="currencyAmount" class="w-full p-3 border rounded" placeholder="Enter amount">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">From:</label>
+                                <select id="fromCurrency" class="w-full p-2 border rounded">
+                                    <option value="USD">USD - US Dollar</option>
+                                    <option value="EUR">EUR - Euro</option>
+                                    <option value="GBP">GBP - British Pound</option>
+                                    <option value="JPY">JPY - Japanese Yen</option>
+                                    <option value="CAD">CAD - Canadian Dollar</option>
+                                    <option value="AUD">AUD - Australian Dollar</option>
+                                    <option value="INR">INR - Indian Rupee</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">To:</label>
+                                <select id="toCurrency" class="w-full p-2 border rounded">
+                                    <option value="EUR">EUR - Euro</option>
+                                    <option value="USD">USD - US Dollar</option>
+                                    <option value="GBP">GBP - British Pound</option>
+                                    <option value="JPY">JPY - Japanese Yen</option>
+                                    <option value="CAD">CAD - Canadian Dollar</option>
+                                    <option value="AUD">AUD - Australian Dollar</option>
+                                    <option value="INR">INR - Indian Rupee</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button onclick="convertCurrency()" class="w-full bg-indigo-600 text-white py-3 rounded hover:bg-indigo-700">
+                            <i class="fas fa-exchange-alt mr-2"></i>Convert Currency
+                        </button>
+                        <div id="currencyResult" class="hidden">
+                            <div class="bg-gray-50 p-4 rounded text-center">
+                                <div class="text-2xl font-bold text-green-600" id="convertedAmount"></div>
+                                <div class="text-sm text-gray-600 mt-2" id="exchangeRate"></div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-500">
+                            Note: Exchange rates are approximate and for reference only
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Developer Tools Section -->
+        <section id="developer" class="tool-section">
+            <h2 class="text-3xl font-bold mb-6 text-center">Developer Tools</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- JSON Formatter -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-code mr-2 text-blue-600"></i>JSON Formatter
+                    </h3>
+                    <textarea id="jsonInput" class="w-full h-32 p-3 border rounded mb-4 font-mono text-sm" placeholder="Paste your JSON here..."></textarea>
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="formatJSON()" class="bg-blue-600 text-white py-2 rounded text-sm hover:bg-blue-700">
+                            <i class="fas fa-indent mr-1"></i>Format
+                        </button>
+                        <button onclick="minifyJSON()" class="bg-gray-600 text-white py-2 rounded text-sm hover:bg-gray-700">
+                            <i class="fas fa-compress mr-1"></i>Minify
+                        </button>
+                    </div>
+                    <textarea id="jsonOutput" class="w-full h-32 p-3 border rounded bg-gray-50 font-mono text-sm" readonly></textarea>
+                    <button onclick="copyJSON()" class="w-full mt-4 bg-green-600 text-white py-2 rounded hover:bg-green-700">
+                        <i class="fas fa-copy mr-2"></i>Copy Result
+                    </button>
+                </div>
+
+                <!-- Base64 Encoder/Decoder -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-lock mr-2 text-green-600"></i>Base64 Encoder/Decoder
+                    </h3>
+                    <textarea id="base64Input" class="w-full h-32 p-3 border rounded mb-4" placeholder="Enter text to encode/decode..."></textarea>
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="encodeBase64()" class="bg-green-600 text-white py-2 rounded text-sm hover:bg-green-700">
+                            <i class="fas fa-lock mr-1"></i>Encode
+                        </button>
+                        <button onclick="decodeBase64()" class="bg-red-600 text-white py-2 rounded text-sm hover:bg-red-700">
+                            <i class="fas fa-unlock mr-1"></i>Decode
+                        </button>
+                    </div>
+                    <textarea id="base64Output" class="w-full h-32 p-3 border rounded bg-gray-50" readonly></textarea>
+                    <button onclick="copyBase64()" class="w-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                        <i class="fas fa-copy mr-2"></i>Copy Result
+                    </button>
+                </div>
+
+                <!-- URL Encoder/Decoder -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-link mr-2 text-purple-600"></i>URL Encoder/Decoder
+                    </h3>
+                    <textarea id="urlInput" class="w-full h-32 p-3 border rounded mb-4" placeholder="Enter URL or text..."></textarea>
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="encodeURL()" class="bg-purple-600 text-white py-2 rounded text-sm hover:bg-purple-700">
+                            <i class="fas fa-lock mr-1"></i>Encode
+                        </button>
+                        <button onclick="decodeURL()" class="bg-orange-600 text-white py-2 rounded text-sm hover:bg-orange-700">
+                            <i class="fas fa-unlock mr-1"></i>Decode
+                        </button>
+                    </div>
+                    <textarea id="urlOutput" class="w-full h-32 p-3 border rounded bg-gray-50" readonly></textarea>
+                    <button onclick="copyURL()" class="w-full mt-4 bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                        <i class="fas fa-copy mr-2"></i>Copy Result
+                    </button>
+                </div>
+
+                <!-- Color Code Converter -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-palette mr-2 text-pink-600"></i>Color Converter
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">HEX Color:</label>
+                            <input type="text" id="hexInput" class="w-full p-3 border rounded" placeholder="#FF5733" oninput="convertFromHex()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">RGB Values:</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <input type="number" id="rgbR" class="p-2 border rounded" placeholder="R" min="0" max="255" oninput="convertFromRGB()">
+                                <input type="number" id="rgbG" class="p-2 border rounded" placeholder="G" min="0" max="255" oninput="convertFromRGB()">
+                                <input type="number" id="rgbB" class="p-2 border rounded" placeholder="B" min="0" max="255" oninput="convertFromRGB()">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">HSL Values:</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <input type="number" id="hslH" class="p-2 border rounded" placeholder="H" min="0" max="360" oninput="convertFromHSL()">
+                                <input type="number" id="hslS" class="p-2 border rounded" placeholder="S%" min="0" max="100" oninput="convertFromHSL()">
+                                <input type="number" id="hslL" class="p-2 border rounded" placeholder="L%" min="0" max="100" oninput="convertFromHSL()">
+                            </div>
+                        </div>
+                        <div id="colorPreview" class="h-16 w-full border rounded"></div>
+                    </div>
+                </div>
+
+                <!-- Hash Generator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-fingerprint mr-2 text-yellow-600"></i>Hash Generator
+                    </h3>
+                    <textarea id="hashInput" class="w-full h-24 p-3 border rounded mb-4" placeholder="Enter text to hash..."></textarea>
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <button onclick="generateHash('md5')" class="bg-red-600 text-white py-2 rounded text-sm hover:bg-red-700">MD5</button>
+                        <button onclick="generateHash('sha1')" class="bg-blue-600 text-white py-2 rounded text-sm hover:bg-blue-700">SHA-1</button>
+                        <button onclick="generateHash('sha256')" class="bg-green-600 text-white py-2 rounded text-sm hover:bg-green-700">SHA-256</button>
+                        <button onclick="generateHash('sha512')" class="bg-purple-600 text-white py-2 rounded text-sm hover:bg-purple-700">SHA-512</button>
+                    </div>
+                    <div id="hashResults" class="space-y-2"></div>
+                </div>
+
+                <!-- Regex Tester -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-search mr-2 text-indigo-600"></i>Regex Tester
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Regular Expression:</label>
+                            <input type="text" id="regexPattern" class="w-full p-3 border rounded font-mono" placeholder="Enter regex pattern..." oninput="testRegex()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Flags:</label>
+                            <div class="flex space-x-4">
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="regexGlobal" class="mr-1" onchange="testRegex()">
+                                    <span class="text-sm">Global (g)</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="regexIgnoreCase" class="mr-1" onchange="testRegex()">
+                                    <span class="text-sm">Ignore Case (i)</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" id="regexMultiline" class="mr-1" onchange="testRegex()">
+                                    <span class="text-sm">Multiline (m)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Test String:</label>
+                            <textarea id="regexTestString" class="w-full h-24 p-3 border rounded" placeholder="Enter test string..." oninput="testRegex()"></textarea>
+                        </div>
+                        <div id="regexResults" class="bg-gray-50 p-3 rounded min-h-12">
+                            <div class="text-sm text-gray-500">Results will appear here...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Utility Tools Section -->
+        <section id="utility" class="tool-section">
+            <h2 class="text-3xl font-bold mb-6 text-center">Utility Tools</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Password Generator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-key mr-2 text-blue-600"></i>Password Generator
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Password Length:</label>
+                            <input type="range" id="passwordLength" class="w-full" min="4" max="50" value="12" oninput="updatePasswordLength()">
+                            <div class="text-center text-sm text-gray-600">
+                                Length: <span id="passwordLengthValue">12</span>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" id="includeUppercase" checked class="mr-2">
+                                <span class="text-sm">Uppercase (A-Z)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="includeLowercase" checked class="mr-2">
+                                <span class="text-sm">Lowercase (a-z)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="includeNumbers" checked class="mr-2">
+                                <span class="text-sm">Numbers (0-9)</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="includeSymbols" class="mr-2">
+                                <span class="text-sm">Symbols (!@#$%^&*)</span>
+                            </label>
+                        </div>
+                        <button onclick="generatePassword()" class="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700">
+                            <i class="fas fa-key mr-2"></i>Generate Password
+                        </button>
+                        <div id="passwordResult" class="hidden">
+                            <input type="text" id="generatedPassword" class="w-full p-3 border rounded bg-gray-50 font-mono" readonly>
+                            <div class="grid grid-cols-2 gap-2 mt-2">
+                                <button onclick="copyPassword()" class="bg-green-600 text-white py-2 rounded text-sm hover:bg-green-700">
+                                    <i class="fas fa-copy mr-1"></i>Copy
+                                </button>
+                                <button onclick="generatePassword()" class="bg-gray-600 text-white py-2 rounded text-sm hover:bg-gray-700">
+                                    <i class="fas fa-sync mr-1"></i>New
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Random Number Generator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-dice mr-2 text-green-600"></i>Random Number Generator
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Minimum:</label>
+                                <input type="number" id="randomMin" class="w-full p-3 border rounded" value="1">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">Maximum:</label>
+                                <input type="number" id="randomMax" class="w-full p-3 border rounded" value="100">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">How many numbers:</label>
+                            <input type="number" id="randomCount" class="w-full p-3 border rounded" value="1" min="1" max="100">
+                        </div>
+                        <div>
+                            <label class="flex items-center">
+                                <input type="checkbox" id="allowDuplicates" class="mr-2">
+                                <span class="text-sm">Allow duplicates</span>
+                            </label>
+                        </div>
+                        <button onclick="generateRandomNumbers()" class="w-full bg-green-600 text-white py-3 rounded hover:bg-green-700">
+                            <i class="fas fa-dice mr-2"></i>Generate Numbers
+                        </button>
+                        <div id="randomResult" class="hidden">
+                            <div class="bg-gray-50 p-4 rounded text-center">
+                                <div id="randomNumbers" class="text-2xl font-bold text-green-600 mb-2"></div>
+                                <button onclick="copyRandomNumbers()" class="bg-blue-600 text-white px-4 py-2 rounded text-sm hover:bg-blue-700">
+                                    <i class="fas fa-copy mr-1"></i>Copy
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Unit Converter -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-ruler mr-2 text-purple-600"></i>Unit Converter
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Category:</label>
+                            <select id="unitCategory" class="w-full p-2 border rounded" onchange="updateUnitOptions()">
+                                <option value="length">Length</option>
+                                <option value="weight">Weight</option>
+                                <option value="temperature">Temperature</option>
+                                <option value="area">Area</option>
+                                <option value="volume">Volume</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Value:</label>
+                            <input type="number" id="unitValue" class="w-full p-3 border rounded" placeholder="Enter value" oninput="convertUnit()">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2">From:</label>
+                                <select id="unitFrom" class="w-full p-2 border rounded" onchange="convertUnit()">
+                                    <!-- Options will be populated by JavaScript -->
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-2">To:</label>
+                                <select id="unitTo" class="w-full p-2 border rounded" onchange="convertUnit()">
+                                    <!-- Options will be populated by JavaScript -->
+                                </select>
+                            </div>
+                        </div>
+                        <div id="unitResult" class="bg-gray-50 p-4 rounded text-center hidden">
+                            <div id="unitResultValue" class="text-2xl font-bold text-purple-600"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stopwatch & Timer -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-stopwatch mr-2 text-orange-600"></i>Stopwatch & Timer
+                    </h3>
+                    <div class="text-center">
+                        <div class="bg-gray-900 text-white p-6 rounded mb-4">
+                            <div id="stopwatchDisplay" class="text-4xl font-mono">00:00:00</div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 mb-4">
+                            <button id="startStopBtn" onclick="toggleStopwatch()" class="bg-green-600 text-white py-3 rounded hover:bg-green-700">
+                                <i class="fas fa-play mr-1"></i>Start
+                            </button>
+                            <button onclick="resetStopwatch()" class="bg-red-600 text-white py-3 rounded hover:bg-red-700">
+                                <i class="fas fa-stop mr-1"></i>Reset
+                            </button>
+                            <button onclick="lapStopwatch()" class="bg-blue-600 text-white py-3 rounded hover:bg-blue-700">
+                                <i class="fas fa-flag mr-1"></i>Lap
+                            </button>
+                        </div>
+                        <div id="lapTimes" class="space-y-1 max-h-32 overflow-y-auto"></div>
+                    </div>
+                </div>
+
+                <!-- Color Palette Generator -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-swatchbook mr-2 text-pink-600"></i>Color Palette Generator
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Base Color:</label>
+                            <input type="color" id="baseColor" class="w-full h-12 rounded border" value="#667eea" onchange="generatePalette()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Palette Type:</label>
+                            <select id="paletteType" class="w-full p-2 border rounded" onchange="generatePalette()">
+                                <option value="monochromatic">Monochromatic</option>
+                                <option value="analogous">Analogous</option>
+                                <option value="complementary">Complementary</option>
+                                <option value="triadic">Triadic</option>
+                                <option value="tetradic">Tetradic</option>
+                            </select>
+                        </div>
+                        <button onclick="generatePalette()" class="w-full bg-pink-600 text-white py-2 rounded hover:bg-pink-700">
+                            <i class="fas fa-palette mr-2"></i>Generate Palette
+                        </button>
+                        <div id="colorPalette" class="grid grid-cols-5 gap-2 h-20"></div>
+                        <div id="paletteColors" class="text-xs space-y-1"></div>
+                        <button onclick="copyPalette()" class="w-full bg-gray-600 text-white py-2 rounded hover:bg-gray-700 hidden" id="copyPaletteBtn">
+                            <i class="fas fa-copy mr-2"></i>Copy Palette
+                        </button>
+                    </div>
+                </div>
+
+                <!-- World Clock -->
+                <div class="tool-card bg-white rounded-lg shadow-md p-6">
+                    <h3 class="text-xl font-semibold mb-4 flex items-center">
+                        <i class="fas fa-globe mr-2 text-teal-600"></i>World Clock
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <div>
+                                <div class="font-medium">New York</div>
+                                <div class="text-sm text-gray-600">UTC-5</div>
+                            </div>
+                            <div id="nyTime" class="text-lg font-mono">--:--</div>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <div>
+                                <div class="font-medium">London</div>
+                                <div class="text-sm text-gray-600">UTC+0</div>
+                            </div>
+                            <div id="londonTime" class="text-lg font-mono">--:--</div>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <div>
+                                <div class="font-medium">Tokyo</div>
+                                <div class="text-sm text-gray-600">UTC+9</div>
+                            </div>
+                            <div id="tokyoTime" class="text-lg font-mono">--:--</div>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-gray-50 rounded">
+                            <div>
+                                <div class="font-medium">Sydney</div>
+                                <div class="text-sm text-gray-600">UTC+11</div>
+                            </div>
+                            <div id="sydneyTime" class="text-lg font-mono">--:--</div>
+                        </div>
+                        <div class="flex justify-between items-center p-3 bg-blue-100 rounded border-2 border-blue-300">
+                            <div>
+                                <div class="font-medium">Your Local Time</div>
+                                <div class="text-sm text-gray-600" id="localTimezone">--</div>
+                            </div>
+                            <div id="localTime" class="text-lg font-mono font-bold">--:--</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- AdMob Banner Bottom -->
+    <div class="admob-banner">
+        AdMob Banner Ad Space - Footer Position
+    </div>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <div class="mb-4">
+                <h3 class="text-2xl font-bold mb-2">WebToolsHub</h3>
+                <p class="text-blue-100">Your one-stop destination for all online tools</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 mb-6">
+                <div>
+                    <h4 class="font-semibold mb-2">Popular Tools</h4>
+                    <ul class="text-sm text-blue-100 space-y-1">
+                        <li>Image Compressor</li>
+                        <li>PDF Converter</li>
+                        <li>QR Generator</li>
+                        <li>Password Generator</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-2">Categories</h4>
+                    <ul class="text-sm text-blue-100 space-y-1">
+                        <li>Image Tools</li>
+                        <li>Text Tools</li>
+                        <li>Calculators</li>
+                        <li>Developer Tools</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-2">About</h4>
+                    <ul class="text-sm text-blue-100 space-y-1">
+                        <li>Free to use</li>
+                        <li>No registration required</li>
+                        <li>Privacy focused</li>
+                        <li>Mobile friendly</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-blue-400 pt-4">
+                <p class="text-sm text-blue-100">
+                    © 2024 WebToolsHub. All rights reserved. | Made with ❤️ for developers and creators
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AdMob Integration Comments -->
+    <!-- 
+    ADMOB INTEGRATION GUIDE:
+    
+    For mobile app integration (React Native, Flutter, etc.):
+    
+    1. Banner Ads: Place at top, bottom, or between content sections
+       - Ad Unit ID format: ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY
+       - Standard sizes: 320x50 (mobile), 728x90 (tablet)
+    
+    2. Interstitial Ads: Show between tool usage or page transitions
+       - Best placement: After completing a tool operation
+       - Frequency: Every 3-5 tool uses to avoid user annoyance
+    
+    3. Rewarded Ads: Offer premium features or remove ads temporarily
+       - Use for: Bulk operations, advanced features, ad-free experience
+    
+    4. Native Ads: Blend with tool cards in grid layout
+       - Match design with existing tool cards
+       - Label clearly as "Advertisement"
+    
+    For WebView Implementation:
+    - Wrap this HTML in native mobile app
+    - Add AdMob ads in native layer
+    - Use JavaScript bridge for ad triggers
+    
+    Revenue Optimization:
+    - A/B test ad placements
+    - Monitor eCPM and user retention
+    - Implement ad frequency capping
+    - Use mediation for better fill rates
+    -->
+
+    <script>
+        // Global variables
+        let currentSection = 'image';
+        let stopwatchInterval = null;
+        let stopwatchTime = 0;
+        let isStopwatchRunning = false;
+        let lapCounter = 1;
+
+        // Initialize the application
+        window.addEventListener('DOMContentLoaded', function() {
+            showSection('image');
+            updateColorInfo();
+            updateUnitOptions();
+            updatePasswordLength();
+            setCurrentDate();
+            startWorldClock();
+            
+            // Initialize drag and drop for all file inputs
+            initializeDragDrop();
+        });
+
+        // Navigation functions
+        function showSection(section) {
+            // Hide all sections
+            document.querySelectorAll('.tool-section').forEach(s => s.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(section).classList.add('active');
+            
+            // Update tab buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                btn.classList.add('hover:bg-gray-100');
+            });
+            event.target.classList.remove('hover:bg-gray-100');
+            event.target.classList.add('bg-blue-600', 'text-white');
+            
+            currentSection = section;
+
+            // AdMob Trigger: Show interstitial ad on section change (simulated)
+            if (typeof showInterstitialAd === 'function') {
+                showInterstitialAd();
+            }
+        }
+
+        // Initialize drag and drop functionality
+        function initializeDragDrop() {
+            document.querySelectorAll('.drag-drop-area').forEach(area => {
+                area.addEventListener('dragover', handleDragOver);
+                area.addEventListener('dragleave', handleDragLeave);
+                area.addEventListener('drop', handleDrop);
+            });
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('dragover');
+        }
+
+        function handleDragLeave(e) {
+            e.currentTarget.classList.remove('dragover');
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                // Handle file based on context
+                const fileInput = e.currentTarget.querySelector('input[type="file"]') || 
+                                e.currentTarget.nextElementSibling;
+                if (fileInput) {
+                    fileInput.files = files;
+                    fileInput.dispatchEvent(new Event('change'));
+                }
+            }
+        }
+
+        // IMAGE TOOLS FUNCTIONS
+        function compressImage(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    const originalCanvas = document.getElementById('originalCanvas');
+                    const compressedCanvas = document.getElementById('compressedCanvas');
+                    const originalCtx = originalCanvas.getContext('2d');
+                    const compressedCtx = compressedCanvas.getContext('2d');
+
+                    // Set canvas dimensions
+                    const maxWidth = 300;
+                    const ratio = Math.min(maxWidth / img.width, maxWidth / img.height);
+                    const width = img.width * ratio;
+                    const height = img.height * ratio;
+
+                    originalCanvas.width = compressedCanvas.width = width;
+                    originalCanvas.height = compressedCanvas.height = height;
+
+                    // Draw original
+                    originalCtx.drawImage(img, 0, 0, width, height);
+
+                    // Draw compressed
+                    const quality = parseFloat(document.getElementById('compressionLevel').value);
+                    compressedCtx.drawImage(img, 0, 0, width, height);
+
+                    // Show results
+                    document.getElementById('imageResult').classList.remove('hidden');
+                    document.getElementById('originalSize').textContent = `Size: ${(file.size / 1024).toFixed(2)} KB`;
+                    
+                    // Calculate compressed size (approximation)
+                    const compressedSize = (file.size * quality / 1024).toFixed(2);
+                    document.getElementById('compressedSize').textContent = `Size: ${compressedSize} KB`;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function downloadCompressedImage() {
+            const canvas = document.getElementById('compressedCanvas');
+            const quality = parseFloat(document.getElementById('compressionLevel').value);
+            const link = document.createElement('a');
+            link.download = 'compressed-image.jpg';
+            link.href = canvas.toDataURL('image/jpeg', quality);
+            link.click();
+        }
+
+        let resizeImageData = null;
+
+        function loadImageForResize(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    resizeImageData = img;
+                    document.getElementById('resizeWidth').value = img.width;
+                    document.getElementById('resizeHeight').value = img.height;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function resizeImage() {
+            if (!resizeImageData) return;
+
+            const width = parseInt(document.getElementById('resizeWidth').value);
+            const height = parseInt(document.getElementById('resizeHeight').value);
+            const canvas = document.getElementById('resizeCanvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = width;
+            canvas.height = height;
+            ctx.drawImage(resizeImageData, 0, 0, width, height);
+
+            canvas.classList.remove('hidden');
+            document.getElementById('downloadResized').classList.remove('hidden');
+        }
+
+        function downloadResizedImage() {
+            const canvas = document.getElementById('resizeCanvas');
+            const link = document.createElement('a');
+            link.download = 'resized-image.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Continue with more image functions...
+        let convertImageData = null;
+
+        function loadImageForConvert(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = new Image();
+                img.onload = function() {
+                    convertImageData = img;
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function convertImage() {
+            if (!convertImageData) return;
+
+            const format = document.getElementById('convertFormat').value;
+            const canvas = document.getElementById('convertCanvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = convertImageData.width;
+            canvas.height = convertImageData.height;
+            ctx.drawImage(convertImageData, 0, 0);
+
+            canvas.classList.remove('hidden');
+            document.getElementById('downloadConverted').classList.remove('hidden');
+        }
+
+        function downloadConvertedImage() {
+            const canvas = document.getElementById('convertCanvas');
+            const format = document.getElementById('convertFormat').value;
+            const link = document.createElement('a');
+            link.download = `converted-image.${format}`;
+            
+            let mimeType = 'image/png';
+            if (format === 'jpeg') mimeType = 'image/jpeg';
+            else if (format === 'webp') mimeType = 'image/webp';
+            
+            link.href = canvas.toDataURL(mimeType);
+            link.click();
+        }
+
+        function updateColorInfo() {
+            const color = document.getElementById('colorPicker').value;
+            document.getElementById('hexValue').textContent = color;
+            
+            // Convert to RGB
+            const r = parseInt(color.substr(1, 2), 16);
+            const g = parseInt(color.substr(3, 2), 16);
+            const b = parseInt(color.substr(5, 2), 16);
+            document.getElementById('rgbValue').textContent = `rgb(${r}, ${g}, ${b})`;
+            
+            // Convert to HSL (simplified)
+            const rNorm = r / 255;
+            const gNorm = g / 255;
+            const bNorm = b / 255;
+            const max = Math.max(rNorm, gNorm, bNorm);
+            const min = Math.min(rNorm, gNorm, bNorm);
+            const l = (max + min) / 2;
+            let s = 0;
+            let h = 0;
+            
+            if (max !== min) {
+                s = l > 0.5 ? (max - min) / (2 - max - min) : (max - min) / (max + min);
+                if (max === rNorm) h = (gNorm - bNorm) / (max - min) + (gNorm < bNorm ? 6 : 0);
+                else if (max === gNorm) h = (bNorm - rNorm) / (max - min) + 2;
+                else h = (rNorm - gNorm) / (max - min) + 4;
+                h /= 6;
+            }
+            
+            document.getElementById('hslValue').textContent = 
+                `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
+        }
+
+        function copyColorValue() {
+            const hex = document.getElementById('hexValue').textContent;
+            navigator.clipboard.writeText(hex);
+            alert('Color value copied to clipboard!');
+        }
+
+        // TEXT TOOLS FUNCTIONS
+        function countWords() {
+            const text = document.getElementById('wordCountText').value;
+            const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+            const chars = text.length;
+            const sentences = text.trim() === '' ? 0 : text.split(/[.!?]+/).filter(s => s.trim() !== '').length;
+            const paragraphs = text.trim() === '' ? 0 : text.split(/\n\s*\n/).filter(p => p.trim() !== '').length;
+
+            document.getElementById('wordCount').textContent = words;
+            document.getElementById('charCount').textContent = chars;
+            document.getElementById('sentenceCount').textContent = sentences;
+            document.getElementById('paragraphCount').textContent = paragraphs;
+        }
+
+        function convertCase(type) {
+            const text = document.getElementById('caseText').value;
+            let result = '';
+
+            switch(type) {
+                case 'upper':
+                    result = text.toUpperCase();
+                    break;
+                case 'lower':
+                    result = text.toLowerCase();
+                    break;
+                case 'title':
+                    result = text.replace(/\w\S*/g, (txt) => 
+                        txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+                    break;
+                case 'sentence':
+                    result = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+                    break;
+            }
+
+            document.getElementById('caseResult').value = result;
+        }
+
+        function copyCaseResult() {
+            const result = document.getElementById('caseResult');
+            result.select();
+            document.execCommand('copy');
+            alert('Text copied to clipboard!');
+        }
+
+        function replaceText() {
+            const text = document.getElementById('replaceText').value;
+            const find = document.getElementById('findText').value;
+            const replace = document.getElementById('replaceWith').value;
+            const caseSensitive = document.getElementById('caseSensitive').checked;
+
+            if (!find) return;
+
+            const flags = caseSensitive ? 'g' : 'gi';
+            const regex = new RegExp(find.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), flags);
+            const result = text.replace(regex, replace);
+
+            document.getElementById('replaceResult').value = result;
+        }
+
+        function generateLorem() {
+            const type = document.getElementById('loremType').value;
+            const count = parseInt(document.getElementById('loremCount').value);
+            
+            const loremWords = [
+                'lorem', 'ipsum', 'dolor', 'sit', 'amet', 'consectetur', 'adipiscing', 'elit',
+                'sed', 'do', 'eiusmod', 'tempor', 'incididunt', 'ut', 'labore', 'et', 'dolore',
+                'magna', 'aliqua', 'enim', 'ad', 'minim', 'veniam', 'quis', 'nostrud',
+                'exercitation', 'ullamco', 'laboris', 'nisi', 'aliquip', 'ex', 'ea', 'commodo',
+                'consequat', 'duis', 'aute', 'irure', 'in', 'reprehenderit', 'voluptate',
+                'velit', 'esse', 'cillum', 'fugiat', 'nulla', 'pariatur', 'excepteur', 'sint',
+                'occaecat', 'cupidatat', 'non', 'proident', 'sunt', 'culpa', 'qui', 'officia',
+                'deserunt', 'mollit', 'anim', 'id', 'est', 'laborum'
+            ];
+
+            let result = '';
+
+            if (type === 'words') {
+                for (let i = 0; i < count; i++) {
+                    result += loremWords[Math.floor(Math.random() * loremWords.length)];
+                    if (i < count - 1) result += ' ';
+                }
+            } else if (type === 'sentences') {
+                for (let i = 0; i < count; i++) {
+                    const sentenceLength = Math.floor(Math.random() * 10) + 5;
+                    let sentence = '';
+                    for (let j = 0; j < sentenceLength; j++) {
+                        sentence += loremWords[Math.floor(Math.random() * loremWords.length)];
+                        if (j < sentenceLength - 1) sentence += ' ';
+                    }
+                    result += sentence.charAt(0).toUpperCase() + sentence.slice(1) + '. ';
+                }
+            } else if (type === 'paragraphs') {
+                for (let i = 0; i < count; i++) {
+                    const paragraphLength = Math.floor(Math.random() * 5) + 3;
+                    let paragraph = '';
+                    for (let j = 0; j < paragraphLength; j++) {
+                        const sentenceLength = Math.floor(Math.random() * 10) + 5;
+                        let sentence = '';
+                        for (let k = 0; k < sentenceLength; k++) {
+                            sentence += loremWords[Math.floor(Math.random() * loremWords.length)];
+                            if (k < sentenceLength - 1) sentence += ' ';
+                        }
+                        paragraph += sentence.charAt(0).toUpperCase() + sentence.slice(1) + '. ';
+                    }
+                    result += paragraph + '\n\n';
+                }
+            }
+
+            document.getElementById('loremResult').value = result.trim();
+        }
+
+        function copyLorem() {
+            const result = document.getElementById('loremResult');
+            result.select();
+            document.execCommand('copy');
+            alert('Lorem ipsum text copied to clipboard!');
+        }
+
+        function reverseTextInput() {
+            reverseType('chars');
+        }
+
+        function reverseType(type) {
+            const text = document.getElementById('reverseText').value;
+            let result = '';
+
+            if (type === 'chars') {
+                result = text.split('').reverse().join('');
+            } else if (type === 'words') {
+                result = text.split(' ').reverse().join(' ');
+            }
+
+            document.getElementById('reverseResult').value = result;
+        }
+
+        function sortLines(order) {
+            const text = document.getElementById('sortText').value;
+            const removeDuplicates = document.getElementById('removeDuplicates').checked;
+            
+            let lines = text.split('\n');
+            
+            if (removeDuplicates) {
+                lines = [...new Set(lines)];
+            }
+            
+            lines.sort((a, b) => {
+                if (order === 'asc') {
+                    return a.localeCompare(b);
+                } else {
+                    return b.localeCompare(a);
+                }
+            });
+
+            document.getElementById('sortResult').value = lines.join('\n');
+        }
+
+        // PDF TOOLS FUNCTIONS
+        function generatePDF() {
+            const text = document.getElementById('pdfText').value;
+            const pageSize = document.getElementById('pageSize').value;
+            
+            if (!text.trim()) {
+                alert('Please enter some text');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'mm',
+                format: pageSize
+            });
+
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const margin = 20;
+            const maxWidth = pageWidth - 2 * margin;
+            
+            const lines = doc.splitTextToSize(text, maxWidth);
+            doc.text(lines, margin, margin);
+            doc.save('generated-document.pdf');
+        }
+
+        function imagesToPDF() {
+            const files = document.getElementById('imagesToPdf').files;
+            if (files.length === 0) {
+                alert('Please select at least one image');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            let imagesProcessed = 0;
+
+            Array.from(files).forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = new Image();
+                    img.onload = function() {
+                        if (index > 0) {
+                            doc.addPage();
+                        }
+
+                        const pageWidth = doc.internal.pageSize.getWidth();
+                        const pageHeight = doc.internal.pageSize.getHeight();
+                        const imgRatio = img.width / img.height;
+                        const pageRatio = pageWidth / pageHeight;
+
+                        let width, height;
+                        if (imgRatio > pageRatio) {
+                            width = pageWidth - 20;
+                            height = width / imgRatio;
+                        } else {
+                            height = pageHeight - 20;
+                            width = height * imgRatio;
+                        }
+
+                        const x = (pageWidth - width) / 2;
+                        const y = (pageHeight - height) / 2;
+
+                        doc.addImage(img, 'JPEG', x, y, width, height);
+                        
+                        imagesProcessed++;
+                        if (imagesProcessed === files.length) {
+                            doc.save('images-to-pdf.pdf');
+                        }
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function htmlToPDF() {
+            const html = document.getElementById('htmlContent').value;
+            if (!html.trim()) {
+                alert('Please enter HTML content');
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            // Simple HTML to text conversion (basic implementation)
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            const text = tempDiv.textContent || tempDiv.innerText || '';
+            
+            const lines = doc.splitTextToSize(text, 170);
+            doc.text(lines, 20, 20);
+            doc.save('html-to-pdf.pdf');
+        }
+
+        // QR CODE FUNCTIONS
+        function changeQRType() {
+            const type = document.getElementById('qrType').value;
+            const inputsDiv = document.getElementById('qrInputs');
+            
+            let html = '';
+            switch(type) {
+                case 'text':
+                    html = '<textarea id="qrText" class="w-full h-24 p-3 border rounded mb-4" placeholder="Enter text..."></textarea>';
+                    break;
+                case 'url':
+                    html = '<input type="url" id="qrText" class="w-full p-3 border rounded mb-4" placeholder="Enter URL...">';
+                    break;
+                case 'email':
+                    html = '<input type="email" id="qrText" class="w-full p-3 border rounded mb-4" placeholder="Enter email address...">';
+                    break;
+                case 'phone':
+                    html = '<input type="tel" id="qrText" class="w-full p-3 border rounded mb-4" placeholder="Enter phone number...">';
+                    break;
+                case 'sms':
+                    html = `
+                        <input type="tel" id="smsPhone" class="w-full p-3 border rounded mb-2" placeholder="Phone number...">
+                        <textarea id="smsMessage" class="w-full h-20 p-3 border rounded mb-4" placeholder="SMS message..."></textarea>
+                    `;
+                    break;
+                case 'wifi':
+                    html = `
+                        <input type="text" id="wifiSSID" class="w-full p-3 border rounded mb-2" placeholder="Network name (SSID)...">
+                        <input type="password" id="wifiPassword" class="w-full p-3 border rounded mb-2" placeholder="Password...">
+                        <select id="wifiSecurity" class="w-full p-2 border rounded mb-4">
+                            <option value="WPA">WPA/WPA2</option>
+                            <option value="WEP">WEP</option>
+                            <option value="nopass">No Password</option>
+                        </select>
+                    `;
+                    break;
+            }
+            inputsDiv.innerHTML = html;
+        }
+
+        function generateQR() {
+            const type = document.getElementById('qrType').value;
+            const size = parseInt(document.getElementById('qrSize').value);
+            const color = document.getElementById('qrColor').value;
+            
+            let text = '';
+            
+            switch(type) {
+                case 'text':
+                case 'url':
+                case 'email':
+                case 'phone':
+                    text = document.getElementById('qrText').value;
+                    if (type === 'email') text = 'mailto:' + text;
+                    else if (type === 'phone') text = 'tel:' + text;
+                    break;
+                case 'sms':
+                    const phone = document.getElementById('smsPhone').value;
+                    const message = document.getElementById('smsMessage').value;
+                    text = `sms:${phone}?body=${encodeURIComponent(message)}`;
+                    break;
+                case 'wifi':
+                    const ssid = document.getElementById('wifiSSID').value;
+                    const password = document.getElementById('wifiPassword').value;
+                    const security = document.getElementById('wifiSecurity').value;
+                    text = `WIFI:T:${security};S:${ssid};P:${password};;`;
+                    break;
+            }
+
+            if (!text) {
+                alert('Please enter the required information');
+                return;
+            }
+
+            const canvas = document.getElementById('qrCanvas');
+            QRCode.toCanvas(canvas, text, {
+                width: size,
+                color: {
+                    dark: color,
+                    light: '#FFFFFF'
+                }
+            }, function(error) {
+                if (error) {
+                    alert('Error generating QR code');
+                    return;
+                }
+                document.getElementById('qrResult').classList.remove('hidden');
+            });
+        }
+
+        function downloadQR() {
+            const canvas = document.getElementById('qrCanvas');
+            const link = document.createElement('a');
+            link.download = 'qr-code.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        function generateWiFiQR() {
+            const ssid = document.getElementById('wifiSSID').value;
+            const password = document.getElementById('wifiPassword').value;
+            const security = document.getElementById('wifiSecurity').value;
+            const hidden = document.getElementById('wifiHidden').checked;
+
+            if (!ssid) {
+                alert('Please enter WiFi network name');
+                return;
+            }
+
+            const text = `WIFI:T:${security};S:${ssid};P:${password};H:${hidden ? 'true' : 'false'};;`;
+            const canvas = document.getElementById('wifiQRCanvas');
+            
+            QRCode.toCanvas(canvas, text, {
+                width: 300,
+                color: {
+                    dark: '#000000',
+                    light: '#FFFFFF'
+                }
+            }, function(error) {
+                if (error) {
+                    alert('Error generating WiFi QR code');
+                    return;
+                }
+                document.getElementById('wifiQRResult').classList.remove('hidden');
+            });
+        }
+
+        function downloadWiFiQR() {
+            const canvas = document.getElementById('wifiQRCanvas');
+            const link = document.createElement('a');
+            link.download = 'wifi-qr-code.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // CALCULATOR FUNCTIONS
+        let calcExpression = '';
+
+        function appendToCalc(value) {
+            const display = document.getElementById('calcDisplay');
+            if (display.value === '0' && value !== '.') {
+                display.value = value;
+            } else {
+                display.value += value;
+            }
+            calcExpression = display.value;
+        }
+
+        function clearCalc() {
+            document.getElementById('calcDisplay').value = '0';
+            calcExpression = '';
+        }
+
+        function deleteLast() {
+            const display = document.getElementById('calcDisplay');
+            if (display.value.length > 1) {
+                display.value = display.value.slice(0, -1);
+            } else {
+                display.value = '0';
+            }
+            calcExpression = display.value;
+        }
+
+        function calculateResult() {
+            const display = document.getElementById('calcDisplay');
+            try {
+                // Replace display symbols with actual operators
+                let expression = display.value.replace(/×/g, '*').replace(/÷/g, '/');
+                const result = eval(expression);
+                display.value = result;
+                calcExpression = result.toString();
+            } catch (error) {
+                display.value = 'Error';
+                calcExpression = '';
+            }
+        }
+
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('bmiWeight').value);
+            const height = parseFloat(document.getElementById('bmiHeight').value);
+
+            if (!weight || !height) {
+                alert('Please enter valid weight and height');
+                return;
+            }
+
+            const bmi = weight / ((height / 100) ** 2);
+            let category = '';
+            let description = '';
+
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                description = 'You may need to gain weight';
+            } else if (bmi < 25) {
+                category = 'Normal weight';
+                description = 'You have a healthy weight';
+            } else if (bmi < 30) {
+                category = 'Overweight';
+                description = 'You may need to lose weight';
+            } else {
+                category = 'Obese';
+                description = 'You should consult a healthcare provider';
+            }
+
+            document.getElementById('bmiValue').textContent = bmi.toFixed(1);
+            document.getElementById('bmiCategory').textContent = category;
+            document.getElementById('bmiDescription').textContent = description;
+            document.getElementById('bmiResult').classList.remove('hidden');
+        }
+
+        function calculateAge() {
+            const birthDate = new Date(document.getElementById('birthDate').value);
+            const calcDate = new Date(document.getElementById('calcDate').value || new Date());
+
+            if (!birthDate || birthDate > calcDate) {
+                alert('Please enter a valid birth date');
+                return;
+            }
+
+            let years = calcDate.getFullYear() - birthDate.getFullYear();
+            let months = calcDate.getMonth() - birthDate.getMonth();
+            let days = calcDate.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                days += new Date(calcDate.getFullYear(), calcDate.getMonth(), 0).getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            const totalDays = Math.floor((calcDate - birthDate) / (1000 * 60 * 60 * 24));
+
+            document.getElementById('
