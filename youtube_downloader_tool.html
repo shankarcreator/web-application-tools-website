@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Downloader - Download HD Videos | Web Tools</title>
+    <meta name="description" content="Download YouTube videos in HD quality. Support for 720p, 480p, 360p formats. Fast, free, and easy to use YouTube video downloader tool.">
+    <meta name="keywords" content="youtube downloader, video downloader, download youtube videos, HD video download, MP4 downloader">
+    <meta name="author" content="Web Application Tools">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="YouTube Video Downloader - Download HD Videos">
+    <meta property="og:description" content="Download YouTube videos in HD quality. Support for multiple formats and resolutions.">
+    <meta property="og:type" content="website">
+    
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-shadow {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+        
+        .video-preview {
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar-ad {
+                display: none;
+            }
+        }
+        
+        .ad-banner {
+            background: #f3f4f6;
+            border: 2px dashed #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .input-field {
+            transition: all 0.3s ease;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .input-field:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .download-option {
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .download-option:hover {
+            border-color: #667eea;
+            background-color: #f8faff;
+        }
+        
+        .download-option.selected {
+            border-color: #667eea;
+            background-color: #f0f4ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Ad Banner -->
+    <div class="ad-banner h-24 mb-4">
+        <span><i class="fas fa-ad mr-2"></i>AdMob Banner Ad - Top Placement (728x90)</span>
+    </div>
+
+    <!-- Header -->
+    <header class="gradient-bg text-white py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="/" class="text-2xl font-bold mr-8">
+                        <i class="fas fa-tools mr-2"></i>Web Tools
+                    </a>
+                    <nav class="hidden md:flex space-x-6">
+                        <a href="/" class="hover:text-blue-200 transition">Home</a>
+                        <a href="/tools" class="hover:text-blue-200 transition">All Tools</a>
+                        <a href="/contact" class="hover:text-blue-200 transition">Contact</a>
+                    </nav>
+                </div>
+                <button class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex flex-wrap -mx-4">
+            <!-- Left Sidebar Ad -->
+            <div class="sidebar-ad w-32 px-4">
+                <div class="ad-banner h-96 sticky top-4">
+                    <span class="transform -rotate-90 whitespace-nowrap">
+                        <i class="fas fa-ad mr-2"></i>AdMob Banner (160x600)
+                    </span>
+                </div>
+            </div>
+
+            <!-- Main Tool Content -->
+            <div class="flex-1 px-4">
+                <div class="max-w-4xl mx-auto">
+                    <!-- Tool Header -->
+                    <div class="text-center mb-8">
+                        <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                            <i class="fab fa-youtube text-red-500 mr-3"></i>
+                            YouTube Video Downloader
+                        </h1>
+                        <p class="text-xl text-gray-600">Download YouTube videos in HD quality - Fast, Free & Easy</p>
+                    </div>
+
+                    <!-- Tool Interface -->
+                    <div class="bg-white rounded-xl card-shadow p-8 mb-8">
+                        <!-- URL Input Section -->
+                        <div class="mb-8">
+                            <label class="block text-lg font-semibold text-gray-700 mb-3">
+                                <i class="fas fa-link mr-2"></i>YouTube Video URL
+                            </label>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <input 
+                                    type="url" 
+                                    id="videoUrl" 
+                                    placeholder="Paste YouTube video URL here (e.g., https://www.youtube.com/watch?v=...)"
+                                    class="input-field flex-1 px-4 py-3 rounded-lg outline-none"
+                                >
+                                <button 
+                                    onclick="fetchVideoInfo()" 
+                                    class="btn-primary px-6 py-3 text-white rounded-lg font-semibold"
+                                >
+                                    <i class="fas fa-search mr-2"></i>Get Video
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Video Preview Section -->
+                        <div id="videoPreview" class="hidden mb-8">
+                            <div class="bg-gray-50 rounded-lg p-6">
+                                <div class="flex flex-col md:flex-row gap-6">
+                                    <div class="md:w-1/3">
+                                        <div class="video-preview bg-gray-300 aspect-video flex items-center justify-center">
+                                            <i class="fas fa-play-circle text-4xl text-gray-500"></i>
+                                        </div>
+                                    </div>
+                                    <div class="md:w-2/3">
+                                        <h3 id="videoTitle" class="text-xl font-semibold mb-2">Video Title</h3>
+                                        <p id="videoChannel" class="text-gray-600 mb-2">Channel Name</p>
+                                        <p id="videoDuration" class="text-gray-500 text-sm mb-4">Duration: --:--</p>
+                                        <div class="flex flex-wrap gap-2">
+                                            <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+                                                <i class="fas fa-eye mr-1"></i>Views: <span id="videoViews">---</span>
+                                            </span>
+                                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                                                <i class="fas fa-calendar mr-1"></i>Published: <span id="videoDate">---</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Download Options Section -->
+                        <div id="downloadOptions" class="hidden mb-8">
+                            <h3 class="text-lg font-semibold text-gray-700 mb-4">
+                                <i class="fas fa-download mr-2"></i>Download Options
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                                <!-- MP4 720p -->
+                                <div class="download-option p-4 rounded-lg" onclick="selectOption(this, 'mp4', '720p')">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="font-semibold">MP4 - 720p HD</div>
+                                            <div class="text-sm text-gray-500">High Quality</div>
+                                        </div>
+                                        <div class="text-2xl">
+                                            <i class="fas fa-file-video text-blue-500"></i>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 text-sm text-gray-600">
+                                        Size: ~25-40 MB
+                                    </div>
+                                </div>
+
+                                <!-- MP4 480p -->
+                                <div class="download-option p-4 rounded-lg" onclick="selectOption(this, 'mp4', '480p')">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="font-semibold">MP4 - 480p</div>
+                                            <div class="text-sm text-gray-500">Standard Quality</div>
+                                        </div>
+                                        <div class="text-2xl">
+                                            <i class="fas fa-file-video text-green-500"></i>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 text-sm text-gray-600">
+                                        Size: ~15-25 MB
+                                    </div>
+                                </div>
+
+                                <!-- MP4 360p -->
+                                <div class="download-option p-4 rounded-lg" onclick="selectOption(this, 'mp4', '360p')">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="font-semibold">MP4 - 360p</div>
+                                            <div class="text-sm text-gray-500">Basic Quality</div>
+                                        </div>
+                                        <div class="text-2xl">
+                                            <i class="fas fa-file-video text-orange-500"></i>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 text-sm text-gray-600">
+                                        Size: ~8-15 MB
+                                    </div>
+                                </div>
+
+                                <!-- Audio Only -->
+                                <div class="download-option p-4 rounded-lg" onclick="selectOption(this, 'mp3', 'audio')">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <div class="font-semibold">Audio Only (MP3)</div>
+                                            <div class="text-sm text-gray-500">High Quality Audio</div>
+                                        </div>
+                                        <div class="text-2xl">
+                                            <i class="fas fa-file-audio text-purple-500"></i>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 text-sm text-gray-600">
+                                        Size: ~3-8 MB
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button 
+                                    id="downloadBtn" 
+                                    onclick="startDownload()" 
+                                    disabled
+                                    class="btn-primary px-8 py-3 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    <i class="fas fa-download mr-2"></i>Download Selected Format
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Progress Section -->
+                        <div id="progressSection" class="hidden">
+                            <div class="bg-blue-50 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-blue-800 mb-4">
+                                    <i class="fas fa-spinner fa-spin mr-2"></i>Processing Your Download
+                                </h3>
+                                <div class="bg-white rounded-lg p-4">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <span class="text-sm font-medium">Progress</span>
+                                        <span id="progressPercent" class="text-sm font-medium">0%</span>
+                                    </div>
+                                    <div class="bg-gray-200 rounded-full h-3">
+                                        <div id="progressBar" class="progress-bar bg-blue-500 h-3 rounded-full" style="width: 0%"></div>
+                                    </div>
+                                    <div id="progressStatus" class="text-sm text-gray-600 mt-2">Initializing download...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Features Section -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white rounded-lg card-shadow p-6 text-center">
+                            <div class="text-3xl text-blue-500 mb-4">
+                                <i class="fas fa-hd-video"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">HD Quality</h3>
+                            <p class="text-gray-600 text-sm">Download videos in up to 720p HD quality</p>
+                        </div>
+                        <div class="bg-white rounded-lg card-shadow p-6 text-center">
+                            <div class="text-3xl text-green-500 mb-4">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">Fast Processing</h3>
+                            <p class="text-gray-600 text-sm">Quick video processing and download speeds</p>
+                        </div>
+                        <div class="bg-white rounded-lg card-shadow p-6 text-center">
+                            <div class="text-3xl text-purple-500 mb-4">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3 class="font-semibold mb-2">100% Safe</h3>
+                            <p class="text-gray-600 text-sm">No software installation or registration required</p>
+                        </div>
+                    </div>
+
+                    <!-- How to Use Section -->
+                    <div class="bg-white rounded-xl card-shadow p-8">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-6">How to Download YouTube Videos</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div class="text-center">
+                                <div class="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <span class="text-2xl font-bold text-blue-500">1</span>
+                                </div>
+                                <h3 class="font-semibold mb-2">Copy URL</h3>
+                                <p class="text-gray-600 text-sm">Copy the YouTube video URL from your browser</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <span class="text-2xl font-bold text-green-500">2</span>
+                                </div>
+                                <h3 class="font-semibold mb-2">Paste & Fetch</h3>
+                                <p class="text-gray-600 text-sm">Paste the URL and click "Get Video" button</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-orange-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <span class="text-2xl font-bold text-orange-500">3</span>
+                                </div>
+                                <h3 class="font-semibold mb-2">Choose Format</h3>
+                                <p class="text-gray-600 text-sm">Select your preferred video quality and format</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-purple-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                                    <span class="text-2xl font-bold text-purple-500">4</span>
+                                </div>
+                                <h3 class="font-semibold mb-2">Download</h3>
+                                <p class="text-gray-600 text-sm">Click download and save the video to your device</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar Ad -->
+            <div class="sidebar-ad w-32 px-4">
+                <div class="ad-banner h-96 sticky top-4">
+                    <span class="transform rotate-90 whitespace-nowrap">
+                        <i class="fas fa-ad mr-2"></i>AdMob Banner (160x600)
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Ad Banner -->
+    <div class="ad-banner h-24 mt-8">
+        <span><i class="fas fa-ad mr-2"></i>AdMob Banner Ad - Bottom Placement (728x90)</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Web Tools</h3>
+                    <p class="text-gray-400 text-sm">Professional online tools for all your digital needs. Fast, free, and easy to use.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Popular Tools</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="/image-compressor" class="hover:text-white transition">Image Compressor</a></li>
+                        <li><a href="/pdf-converter" class="hover:text-white transition">PDF Converter</a></li>
+                        <li><a href="/qr-generator" class="hover:text-white transition">QR Code Generator</a></li>
+                        <li><a href="/word-counter" class="hover:text-white transition">Word Counter</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Categories</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="/image-tools" class="hover:text-white transition">Image Tools</a></li>
+                        <li><a href="/video-tools" class="hover:text-white transition">Video Tools</a></li>
+                        <li><a href="/pdf-tools" class="hover:text-white transition">PDF Tools</a></li>
+                        <li><a href="/text-tools" class="hover:text-white transition">Text Tools</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="/contact" class="hover:text-white transition">Contact Us</a></li>
+                        <li><a href="/privacy" class="hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="/terms" class="hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="/faq" class="hover:text-white transition">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-400 text-sm">&copy; 2024 Web Application Tools. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let selectedFormat = null;
+        let selectedQuality = null;
+
+        function fetchVideoInfo() {
+            const url = document.getElementById('videoUrl').value.trim();
+            
+            if (!url) {
+                alert('Please enter a YouTube URL');
+                return;
+            }
+
+            if (!isValidYouTubeUrl(url)) {
+                alert('Please enter a valid YouTube URL');
+                return;
+            }
+
+            // Show loading state
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Fetching...';
+            btn.disabled = true;
+
+            // Simulate API call delay
+            setTimeout(() => {
+                // Simulate video info (in real implementation, this would come from backend)
+                displayVideoInfo({
+                    title: 'Sample YouTube Video Title - Demo Mode',
+                    channel: 'Channel Name',
+                    duration: '5:42',
+                    views: '1,234,567',
+                    publishDate: '2 weeks ago',
+                    thumbnail: 'https://via.placeholder.com/320x180/cccccc/666666?text=Video+Thumbnail'
+                });
+
+                // Reset button
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }, 2000);
+        }
+
+        function isValidYouTubeUrl(url) {
+            const pattern = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?v=|embed\/|v\/)|youtu\.be\/)[\w\-]+/;
+            return pattern.test(url);
+        }
+
+        function displayVideoInfo(info) {
+            // Populate video info
+            document.getElementById('videoTitle').textContent = info.title;
+            document.getElementById('videoChannel').textContent = info.channel;
+            document.getElementById('videoDuration').textContent = `Duration: ${info.duration}`;
+            document.getElementById('videoViews').textContent = info.views;
+            document.getElementById('videoDate').textContent = info.publishDate;
+
+            // Show preview and download options
+            document.getElementById('videoPreview').classList.remove('hidden');
+            document.getElementById('downloadOptions').classList.remove('hidden');
+
+            // Add demo notice
+            showDemoNotice();
+        }
+
+        function selectOption(element, format, quality) {
+            // Remove previous selection
+            document.querySelectorAll('.download-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Add selection to clicked element
+            element.classList.add('selected');
+
+            // Store selection
+            selectedFormat = format;
+            selectedQuality = quality;
+
+            // Enable download button
+            document.getElementById('downloadBtn').disabled = false;
+        }
+
+        function startDownload() {
+            if (!selectedFormat || !selectedQuality) {
+                alert('Please select a download format first');
+                return;
+            }
+
+            // Hide options and show progress
+            document.getElementById('downloadOptions').classList.add('hidden');
+            document.getElementById('progressSection').classList.remove('hidden');
+
+            // Simulate download progress
+            simulateDownload();
+        }
+
+        function simulateDownload() {
+            let progress = 0;
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = document.getElementById('progressPercent');
+            const progressStatus = document.getElementById('progressStatus');
+
+            const statuses = [
+                'Initializing download...',
+                'Fetching video data...',
+                'Processing video...',
+                'Converting format...',
+                'Preparing download...',
+                'Almost done...'
+            ];
+
+            const interval = setInterval(() => {
+                progress += Math.random() * 15 + 5; // Random progress increment
+                if (progress > 100) progress = 100;
+
+                progressBar.style.width = progress + '%';
+                progressPercent.textContent = Math.round(progress) + '%';
+
+                const statusIndex = Math.min(Math.floor(progress / 20), statuses.length - 1);
+                progressStatus.textContent = statuses[statusIndex];
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        showDownloadComplete();
+                    }, 1000);
+                }
+            }, 500);
+        }
+
+        function showDownloadComplete() {
+            const progressSection = document.getElementById('progressSection');
+            progressSection.innerHTML = `
+                <div class="bg-green-50 rounded-lg p-6 text-center">
+                    <div class="text-4xl text-green-500 mb-4">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-green-800 mb-2">Download Ready!</h3>
+                    <p class="text-green-700 mb-4">Your video has been processed successfully.</p>
+                    <div class="bg-white rounded-lg p-4 mb-4">
+                        <div class="text-sm text-gray-600 mb-2">
+                            <strong>Note:</strong> This is a demo interface. In a production environment, this would trigger an actual download.
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            Backend integration required for actual YouTube video downloading functionality.
+                        </div>
+                    </div>
+                    <button onclick="resetTool()" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">
+                        <i class="fas fa-redo mr-2"></i>Download Another Video
+                    </button>
+                </div>
+            `;
+        }
+
+        function showDemoNotice() {
+            const notice = document.createElement('div');
+            notice.className = 'bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6';
+            notice.innerHTML = `
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                    </div>
+                    <div class="ml-3">
+                        <p class="text-sm text-yellow-700">
+                            <strong>Demo Mode:</strong> This interface demonstrates the user experience. 
+                            A backend service is required for actual YouTube video downloading functionality.
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            const container = document.getElementById('downloadOptions');
+            container.parentNode.insertBefore(notice, container);
+        }
+
+        function resetTool() {
+            // Reset form
+            document.getElementById('videoUrl').value = '';
+            selectedFormat = null;
+            selectedQuality = null;
+
+            // Hide sections
+            document.getElementById('videoPreview').classList.add('hidden');
+            document.getElementById('downloadOptions').classList.add('hidden');
+            document.getElementById('progressSection').classList.add('hidden');
+
+            // Remove selections
+            document.querySelectorAll('.download-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+
+            // Disable download button
+            document.getElementById('downloadBtn').disabled = true;
+
+            // Remove demo notice
+            const notice = document.querySelector('.bg-yellow-50');
+            if (notice) {
+                notice.remove();
+            }
+        }
+
+        // Handle Enter key in URL input
+        document.getElementById('videoUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                fetchVideoInfo();
+            }
+        });
+
+        // Auto-focus URL input on page load
+        window.addEventListener('load', function() {
+            document.getElementById('videoUrl').focus();
+        });
+
+        // Add smooth scrolling for mobile
+        window.addEventListener('scroll', function() {
+            const progressSection = document.getElementById('progressSection');
+            if (!progressSection.classList.contains('hidden')) {
+                progressSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    </script>
+</body>
+</html>
