@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional web tools platform with 100+ free online tools including image compressor, PDF converter, YouTube downloader, calculators, and developer utilities.">
+    <meta name="keywords" content="online tools, web tools, image compressor, PDF converter, YouTube downloader, calculator, developer tools, free tools">
+    <meta name="author" content="Web Application Tools">
+    <meta property="og:title" content="Web Application Tools - 100+ Free Online Tools">
+    <meta property="og:description" content="Access 100+ professional web tools for free. Image editing, video downloading, PDF conversion, calculators, and developer utilities.">
+    <meta property="og:type" content="website">
+    <title>Web Application Tools - 100+ Free Online Tools</title>
+    
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .tool-card:hover { transform: translateY(-2px); transition: all 0.3s ease; }
+        .gradient-bg { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .hero-pattern { background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .ad-placeholder { background: #f3f4f6; border: 2px dashed #d1d5db; }
+        .search-glow { box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Ad Placeholder -->
+    <div class="ad-placeholder text-center py-2 text-gray-500 text-sm">
+        AdMob Banner Ad (728x90)
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <i class="fas fa-tools text-2xl text-blue-600 mr-3"></i>
+                    <span class="text-xl font-bold text-gray-900">Web Tools</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#tools" class="text-gray-600 hover:text-blue-600 transition-colors">Tools</a>
+                    <a href="#categories" class="text-gray-600 hover:text-blue-600 transition-colors">Categories</a>
+                    <a href="#about" class="text-gray-600 hover:text-blue-600 transition-colors">About</a>
+                </div>
+                <button id="mobile-menu-btn" class="md:hidden text-gray-600">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-4 py-3 space-y-2">
+                <a href="#tools" class="block text-gray-600 hover:text-blue-600">Tools</a>
+                <a href="#categories" class="block text-gray-600 hover:text-blue-600">Categories</a>
+                <a href="#about" class="block text-gray-600 hover:text-blue-600">About</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg hero-pattern text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                100+ Free Online Tools
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-blue-100">
+                Professional web tools for developers, creators, and everyone
+            </p>
+            <div class="max-w-2xl mx-auto">
+                <div class="relative">
+                    <input type="text" id="search-tools" placeholder="Search tools..." 
+                           class="w-full px-6 py-4 text-gray-900 bg-white rounded-full shadow-lg focus:outline-none focus:ring-4 focus:ring-blue-300 text-lg">
+                    <button class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-blue-600">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">100+</div>
+                    <div class="text-gray-600">Free Tools</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-green-600 mb-2">11</div>
+                    <div class="text-gray-600">Categories</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-purple-600 mb-2">24/7</div>
+                    <div class="text-gray-600">Available</div>
+                </div>
+                <div>
+                    <div class="text-3xl md:text-4xl font-bold text-red-600 mb-2">0$</div>
+                    <div class="text-gray-600">Cost</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tools Categories -->
+    <section id="categories" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Tool Categories</h2>
+                <p class="text-xl text-gray-600">Choose from our comprehensive collection of professional tools</p>
+            </div>
+
+            <!-- Left Ad Placeholder -->
+            <div class="hidden lg:block fixed left-4 top-1/2 transform -translate-y-1/2 ad-placeholder w-32 h-64 text-center py-4 text-xs text-gray-500">
+                AdMob<br>Banner<br>(160x600)
+            </div>
+
+            <!-- Right Ad Placeholder -->
+            <div class="hidden lg:block fixed right-4 top-1/2 transform -translate-y-1/2 ad-placeholder w-32 h-64 text-center py-4 text-xs text-gray-500">
+                AdMob<br>Banner<br>(160x600)
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="tools-grid">
+                
+                <!-- Image & Graphics Tools -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden tool-card">
+                    <div class="bg-gradient-to-r from-pink-500 to-red-500 text-white p-6">
+                        <i class="fas fa-image text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold">Image & Graphics Tools</h3>
+                        <p class="text-pink-100 mt-2">11 tools available</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 gap-3">
+                            <a href="tools/image-compressor.html" class="text-gray-700 hover:text-pink-600 hover:bg-pink-50 p-2 rounded transition-colors">
+                                <i class="fas fa-compress-alt w-4"></i> Image Compressor
+                            </a>
+                            <a href="tools/resize-image.html" class="text-gray-700 hover:text-pink-600 hover:bg-pink-50 p-2 rounded transition-colors">
+                                <i class="fas fa-expand-arrows-alt w-4"></i> Resize Image
+                            </a>
+                            <a href="tools/crop-image.html" class="text-gray-700 hover:text-pink-600 hover:bg-pink-50 p-2 rounded transition-colors">
+                                <i class="fas fa-crop-alt w-4"></i> Crop Image
+                            </a>
+                            <a href="tools/webp-converter.html" class="text-gray-700 hover:text-pink-600 hover:bg-pink-50 p-2 rounded transition-colors">
+                                <i class="fas fa-exchange-alt w-4"></i> WebP Converter
+                            </a>
+                            <a href="tools/remove-background.html" class="text-gray-700 hover:text-pink-600 hover:bg-pink-50 p-2 rounded transition-colors">
+                                <i class="fas fa-eraser w-4"></i> Remove Background
+                            </a>
+                            <a href="tools/color-picker.html" class="text-gray-700 hover:text-pink-600 hover:bg-pink-50 p-2 rounded transition-colors">
+                                <i class="fas fa-palette w-4"></i> Color Picker
+                            </a>
+                            <a href="tools/image-to-text.html" class="text-gray-700 hover:text-pink-600 hover:bg-pink-50 p-2 rounded transition-colors">
+                                <i class="fas fa-font w-4"></i> Image to Text (OCR)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video & Audio Tools -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden tool-card">
+                    <div class="bg-gradient-to-r from-red-500 to-orange-500 text-white p-6">
+                        <i class="fas fa-video text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold">Video & Audio Tools</h3>
+                        <p class="text-red-100 mt-2">13 tools available</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 gap-3">
+                            <a href="tools/youtube-downloader.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fab fa-youtube w-4"></i> YouTube Downloader
+                            </a>
+                            <a href="tools/youtube-to-mp3.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fas fa-music w-4"></i> YouTube to MP3
+                            </a>
+                            <a href="tools/mp4-to-mp3.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fas fa-file-audio w-4"></i> MP4 to MP3
+                            </a>
+                            <a href="tools/instagram-downloader.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fab fa-instagram w-4"></i> Instagram Downloader
+                            </a>
+                            <a href="tools/tiktok-downloader.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fab fa-tiktok w-4"></i> TikTok Downloader
+                            </a>
+                            <a href="tools/audio-cutter.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fas fa-cut w-4"></i> Audio Cutter
+                            </a>
+                            <a href="tools/merge-audio.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fas fa-object-group w-4"></i> Merge Audio Files
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PDF & Document Tools -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden tool-card">
+                    <div class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white p-6">
+                        <i class="fas fa-file-pdf text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold">PDF & Document Tools</h3>
+                        <p class="text-blue-100 mt-2">10 tools available</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 gap-3">
+                            <a href="tools/pdf-to-word.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-2 rounded transition-colors">
+                                <i class="fas fa-file-word w-4"></i> PDF to Word
+                            </a>
+                            <a href="tools/word-to-pdf.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-2 rounded transition-colors">
+                                <i class="fas fa-file-pdf w-4"></i> Word to PDF
+                            </a>
+                            <a href="tools/pdf-to-jpg.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-2 rounded transition-colors">
+                                <i class="fas fa-file-image w-4"></i> PDF to JPG
+                            </a>
+                            <a href="tools/jpg-to-pdf.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-2 rounded transition-colors">
+                                <i class="fas fa-images w-4"></i> JPG to PDF
+                            </a>
+                            <a href="tools/compress-pdf.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-2 rounded transition-colors">
+                                <i class="fas fa-compress w-4"></i> Compress PDF
+                            </a>
+                            <a href="tools/merge-pdf.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-2 rounded transition-colors">
+                                <i class="fas fa-object-group w-4"></i> Merge PDF
+                            </a>
+                            <a href="tools/split-pdf.html" class="text-gray-700 hover:text-blue-600 hover:bg-blue-50 p-2 rounded transition-colors">
+                                <i class="fas fa-cut w-4"></i> Split PDF
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text & Writing Tools -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden tool-card">
+                    <div class="bg-gradient-to-r from-green-500 to-teal-500 text-white p-6">
+                        <i class="fas fa-font text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold">Text & Writing Tools</h3>
+                        <p class="text-green-100 mt-2">10 tools available</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 gap-3">
+                            <a href="tools/text-to-speech.html" class="text-gray-700 hover:text-green-600 hover:bg-green-50 p-2 rounded transition-colors">
+                                <i class="fas fa-volume-up w-4"></i> Text to Speech
+                            </a>
+                            <a href="tools/speech-to-text.html" class="text-gray-700 hover:text-green-600 hover:bg-green-50 p-2 rounded transition-colors">
+                                <i class="fas fa-microphone w-4"></i> Speech to Text
+                            </a>
+                            <a href="tools/word-counter.html" class="text-gray-700 hover:text-green-600 hover:bg-green-50 p-2 rounded transition-colors">
+                                <i class="fas fa-calculator w-4"></i> Word Counter
+                            </a>
+                            <a href="tools/character-counter.html" class="text-gray-700 hover:text-green-600 hover:bg-green-50 p-2 rounded transition-colors">
+                                <i class="fas fa-sort-numeric-up w-4"></i> Character Counter
+                            </a>
+                            <a href="tools/case-converter.html" class="text-gray-700 hover:text-green-600 hover:bg-green-50 p-2 rounded transition-colors">
+                                <i class="fas fa-text-height w-4"></i> Case Converter
+                            </a>
+                            <a href="tools/typing-speed-test.html" class="text-gray-700 hover:text-green-600 hover:bg-green-50 p-2 rounded transition-colors">
+                                <i class="fas fa-keyboard w-4"></i> Typing Speed Test
+                            </a>
+                            <a href="tools/lorem-ipsum.html" class="text-gray-700 hover:text-green-600 hover:bg-green-50 p-2 rounded transition-colors">
+                                <i class="fas fa-paragraph w-4"></i> Lorem Ipsum Generator
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculation Tools -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden tool-card">
+                    <div class="bg-gradient-to-r from-yellow-500 to-orange-500 text-white p-6">
+                        <i class="fas fa-calculator text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold">Calculation Tools</h3>
+                        <p class="text-yellow-100 mt-2">10 tools available</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 gap-3">
+                            <a href="tools/bmi-calculator.html" class="text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 p-2 rounded transition-colors">
+                                <i class="fas fa-weight w-4"></i> BMI Calculator
+                            </a>
+                            <a href="tools/age-calculator.html" class="text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 p-2 rounded transition-colors">
+                                <i class="fas fa-birthday-cake w-4"></i> Age Calculator
+                            </a>
+                            <a href="tools/percentage-calculator.html" class="text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 p-2 rounded transition-colors">
+                                <i class="fas fa-percent w-4"></i> Percentage Calculator
+                            </a>
+                            <a href="tools/loan-calculator.html" class="text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 p-2 rounded transition-colors">
+                                <i class="fas fa-money-bill-wave w-4"></i> Loan EMI Calculator
+                            </a>
+                            <a href="tools/discount-calculator.html" class="text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 p-2 rounded transition-colors">
+                                <i class="fas fa-tags w-4"></i> Discount Calculator
+                            </a>
+                            <a href="tools/currency-converter.html" class="text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 p-2 rounded transition-colors">
+                                <i class="fas fa-exchange-alt w-4"></i> Currency Converter
+                            </a>
+                            <a href="tools/unit-converter.html" class="text-gray-700 hover:text-yellow-600 hover:bg-yellow-50 p-2 rounded transition-colors">
+                                <i class="fas fa-ruler w-4"></i> Unit Converter
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Developer Tools -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden tool-card">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 text-white p-6">
+                        <i class="fas fa-code text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold">Developer Tools</h3>
+                        <p class="text-purple-100 mt-2">10 tools available</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 gap-3">
+                            <a href="tools/json-formatter.html" class="text-gray-700 hover:text-purple-600 hover:bg-purple-50 p-2 rounded transition-colors">
+                                <i class="fas fa-code w-4"></i> JSON Formatter
+                            </a>
+                            <a href="tools/html-minifier.html" class="text-gray-700 hover:text-purple-600 hover:bg-purple-50 p-2 rounded transition-colors">
+                                <i class="fab fa-html5 w-4"></i> HTML Minifier
+                            </a>
+                            <a href="tools/css-minifier.html" class="text-gray-700 hover:text-purple-600 hover:bg-purple-50 p-2 rounded transition-colors">
+                                <i class="fab fa-css3-alt w-4"></i> CSS Minifier
+                            </a>
+                            <a href="tools/base64-encoder.html" class="text-gray-700 hover:text-purple-600 hover:bg-purple-50 p-2 rounded transition-colors">
+                                <i class="fas fa-lock w-4"></i> Base64 Encoder/Decoder
+                            </a>
+                            <a href="tools/url-encoder.html" class="text-gray-700 hover:text-purple-600 hover:bg-purple-50 p-2 rounded transition-colors">
+                                <i class="fas fa-link w-4"></i> URL Encoder/Decoder
+                            </a>
+                            <a href="tools/color-converter.html" class="text-gray-700 hover:text-purple-600 hover:bg-purple-50 p-2 rounded transition-colors">
+                                <i class="fas fa-palette w-4"></i> Color Converter
+                            </a>
+                            <a href="tools/regex-tester.html" class="text-gray-700 hover:text-purple-600 hover:bg-purple-50 p-2 rounded transition-colors">
+                                <i class="fas fa-search w-4"></i> Regex Tester
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security & Privacy Tools -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden tool-card">
+                    <div class="bg-gradient-to-r from-red-600 to-pink-600 text-white p-6">
+                        <i class="fas fa-shield-alt text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold">Security & Privacy Tools</h3>
+                        <p class="text-red-100 mt-2">10 tools available</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 gap-3">
+                            <a href="tools/password-generator.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fas fa-key w-4"></i> Password Generator
+                            </a>
+                            <a href="tools/hash-generator.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fas fa-hashtag w-4"></i> Hash Generator
+                            </a>
+                            <a href="tools/ip-lookup.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fas fa-globe w-4"></i> IP Address Lookup
+                            </a>
+                            <a href="tools/whois-lookup.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fas fa-search w-4"></i> WHOIS Lookup
+                            </a>
+                            <a href="tools/ssl-checker.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fas fa-certificate w-4"></i> SSL Checker
+                            </a>
+                            <a href="tools/email-validator.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fas fa-envelope-check w-4"></i> Email Validator
+                            </a>
+                            <a href="tools/temp-email.html" class="text-gray-700 hover:text-red-600 hover:bg-red-50 p-2 rounded transition-colors">
+                                <i class="fas fa-envelope w-4"></i> Temp Email Generator
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QR & Social Tools -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden tool-card">
+                    <div class="bg-gradient-to-r from-indigo-500 to-blue-500 text-white p-6">
+                        <i class="fas fa-qrcode text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold">QR & Social Tools</h3>
+                        <p class="text-indigo-100 mt-2">10 tools available</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 gap-3">
+                            <a href="tools/qr-generator.html" class="text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 p-2 rounded transition-colors">
+                                <i class="fas fa-qrcode w-4"></i> QR Code Generator
+                            </a>
+                            <a href="tools/qr-scanner.html" class="text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 p-2 rounded transition-colors">
+                                <i class="fas fa-camera w-4"></i> QR Code Scanner
+                            </a>
+                            <a href="tools/barcode-generator.html" class="text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 p-2 rounded transition-colors">
+                                <i class="fas fa-barcode w-4"></i> Barcode Generator
+                            </a>
+                            <a href="tools/whatsapp-link.html" class="text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 p-2 rounded transition-colors">
+                                <i class="fab fa-whatsapp w-4"></i> WhatsApp Link Generator
+                            </a>
+                            <a href="tools/social-post-scheduler.html" class="text-gray-700 hover:text-indigo-600 hover:bg-indigo-50 p-2 rounded transition-colors">
+                                <i class="fas fa-calendar w-4"></i> Post Scheduler
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Life Utilities -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden tool-card">
+                    <div class="bg-gradient-to-r from-teal-500 to-green-500 text-white p-6">
+                        <i class="fas fa-clock text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold">Daily Life Utilities</h3>
+                        <p class="text-teal-100 mt-2">10 tools available</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 gap-3">
+                            <a href="tools/todo-list.html" class="text-gray-700 hover:text-teal-600 hover:bg-teal-50 p-2 rounded transition-colors">
+                                <i class="fas fa-list w-4"></i> To-Do List Maker
+                            </a>
+                            <a href="tools/countdown-timer.html" class="text-gray-700 hover:text-teal-600 hover:bg-teal-50 p-2 rounded transition-colors">
+                                <i class="fas fa-hourglass w-4"></i> Countdown Timer
+                            </a>
+                            <a href="tools/stopwatch.html" class="text-gray-700 hover:text-teal-600 hover:bg-teal-50 p-2 rounded transition-colors">
+                                <i class="fas fa-stopwatch w-4"></i> Stopwatch
+                            </a>
+                            <a href="tools/world-clock.html" class="text-gray-700 hover:text-teal-600 hover:bg-teal-50 p-2 rounded transition-colors">
+                                <i class="fas fa-globe w-4"></i> World Clock
+                            </a>
+                            <a href="tools/random-generator.html" class="text-gray-700 hover:text-teal-600 hover:bg-teal-50 p-2 rounded transition-colors">
+                                <i class="fas fa-random w-4"></i> Random Generator
+                            </a>
+                            <a href="tools/dice-roller.html" class="text-gray-700 hover:text-teal-600 hover:bg-teal-50 p-2 rounded transition-colors">
+                                <i class="fas fa-dice w-4"></i> Dice Roller
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Management Tools -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden tool-card">
+                    <div class="bg-gradient-to-r from-gray-600 to-gray-800 text-white p-6">
+                        <i class="fas fa-globe text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold">Web Management Tools</h3>
+                        <p class="text-gray-100 mt-2">10 tools available</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 gap-3">
+                            <a href="tools/website-speed-test.html" class="text-gray-700 hover:text-gray-600 hover:bg-gray-50 p-2 rounded transition-colors">
+                                <i class="fas fa-tachometer-alt w-4"></i> Website Speed Test
+                            </a>
+                            <a href="tools/meta-tag-generator.html" class="text-gray-700 hover:text-gray-600 hover:bg-gray-50 p-2 rounded transition-colors">
+                                <i class="fas fa-tags w-4"></i> Meta Tag Generator
+                            </a>
+                            <a href="tools/sitemap-generator.html" class="text-gray-700 hover:text-gray-600 hover:bg-gray-50 p-2 rounded transition-colors">
+                                <i class="fas fa-sitemap w-4"></i> Sitemap Generator
+                            </a>
+                            <a href="tools/robots-generator.html" class="text-gray-700 hover:text-gray-600 hover:bg-gray-50 p-2 rounded transition-colors">
+                                <i class="fas fa-robot w-4"></i> Robots.txt Generator
+                            </a>
+                            <a href="tools/favicon-generator.html" class="text-gray-700 hover:text-gray-600 hover:bg-gray-50 p-2 rounded transition-colors">
+                                <i class="fas fa-star w-4"></i> Favicon Generator
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Choose Our Tools?</h2>
+                <p class="text-xl text-gray-600">Professional-grade tools with enterprise features, completely free</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-rocket text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Fast & Reliable</h3>
+                    <p class="text-gray-600">Lightning-fast processing with 99.9% uptime guarantee. All tools work locally in your browser for maximum privacy.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Secure & Private</h3>
+                    <p class="text-gray-600">Your data never leaves your device. All processing happens locally in your browser for complete privacy and security.</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-mobile-alt text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Mobile Optimized</h3>
+                    <p class="text-gray-600">Perfect responsive design that works flawlessly on all devices - desktop, tablet, and mobile.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom Ad Placeholder -->
+    <div class="ad-placeholder text-center py-4 text-gray-500">
+        AdMob Banner Ad (728x90) - Bottom
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-tools text-2xl text-blue-400 mr-3"></i>
+                        <span class="text-xl font-bold">Web Tools</span>
+                    </div>
+                    <p class="text-gray-400 mb-6">
+                        Your go-to platform for 100+ professional web tools. Fast, secure, and completely free.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-facebook text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Popular Tools</h3>
+                    <ul class="space-y-3">
+                        <li><a href="tools/image-compressor.html" class="text-gray-400 hover:text-white transition-colors">Image Compressor</a></li>
+                        <li><a href="tools/youtube-downloader.html" class="text-gray-400 hover:text-white transition-colors">YouTube Downloader</a></li>
+                        <li><a href="tools/pdf-to-word.html" class="text-gray-400 hover:text-white transition-colors">PDF to Word</a></li>
+                        <li><a href="tools/qr-generator.html" class="text-gray-400 hover:text-white transition-colors">QR Generator</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Categories</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Image Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Video Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">PDF Tools</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Developer Tools</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Support</h3>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <p class="text-gray-400 text-sm">
+                        © 2024 Web Application Tools. All rights reserved.
+                    </p>
+                    <p class="text-gray-400 text-sm mt-4 md:mt-0">
+                        Made with <i class="fas fa-heart text-red-500"></i> for developers and creators
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Search functionality
+        const searchInput = document.getElementById('search-tools');
+        const toolsGrid = document.getElementById('tools-grid');
+
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const toolCards = toolsGrid.querySelectorAll('.tool-card');
+            
+            toolCards.forEach(card => {
+                const cardText = card.textContent.toLowerCase();
+                if (cardText.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation to tool links
+        document.querySelectorAll('a[href^="tools/"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Add a small loading indicator
+                this.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>' + this.innerHTML;
+            });
+        });
+    </script>
+</body>
+</html>
