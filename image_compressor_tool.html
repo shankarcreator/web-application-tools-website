@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Compressor - Compress JPEG, PNG, WebP Images Online Free</title>
+    <meta name="description" content="Compress JPEG, PNG, WebP images online for free. Reduce image file size while maintaining quality. Batch compression, drag-and-drop upload, instant download.">
+    <meta name="keywords" content="image compressor, compress images, reduce image size, JPEG compressor, PNG compressor, WebP compressor, optimize images">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://your-domain.com/image-compressor">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Image Compressor - Compress Images Online Free">
+    <meta property="og:description" content="Compress JPEG, PNG, WebP images online for free. Reduce file size while maintaining quality.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/image-compressor">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Image Compressor - Compress Images Online Free">
+    <meta name="twitter:description" content="Compress JPEG, PNG, WebP images online for free. Reduce file size while maintaining quality.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- CSS Libraries -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <style>
+        .drag-over {
+            border-color: #3b82f6 !important;
+            background-color: #eff6ff !important;
+        }
+        
+        .compressed-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+        
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .compressed-image-container:hover .image-overlay {
+            opacity: 1;
+        }
+        
+        .ad-banner {
+            background: linear-gradient(45deg, #f3f4f6, #e5e7eb);
+            border: 2px dashed #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            font-weight: 500;
+        }
+        
+        @media (max-width: 768px) {
+            .ad-left, .ad-right {
+                display: none;
+            }
+        }
+        
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-ring__circle {
+            stroke: #3b82f6;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Top Ad Banner -->
+    <div class="ad-banner h-20 w-full">
+        <i class="fas fa-ad mr-2"></i>
+        AdMob Banner Ad - Top Position (728x90)
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center">
+                        <i class="fas fa-tools text-blue-600 text-2xl mr-3"></i>
+                        <span class="text-xl font-bold text-gray-900">Web Tools</span>
+                    </a>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="/" class="text-gray-600 hover:text-blue-600 transition-colors">Home</a>
+                    <a href="/image-tools" class="text-blue-600 font-medium">Image Tools</a>
+                    <a href="/converters" class="text-gray-600 hover:text-blue-600 transition-colors">Converters</a>
+                    <a href="/calculators" class="text-gray-600 hover:text-blue-600 transition-colors">Calculators</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex max-w-7xl mx-auto">
+        <!-- Left Ad Banner -->
+        <div class="ad-left ad-banner w-32 h-screen sticky top-0 hidden lg:flex">
+            <div class="transform -rotate-90 whitespace-nowrap">
+                <i class="fas fa-ad mr-2"></i>
+                AdMob Left (160x600)
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Breadcrumb -->
+            <nav class="mb-8">
+                <ol class="flex items-center space-x-2 text-sm text-gray-500">
+                    <li><a href="/" class="hover:text-blue-600">Home</a></li>
+                    <li><i class="fas fa-chevron-right text-xs"></i></li>
+                    <li><a href="/image-tools" class="hover:text-blue-600">Image Tools</a></li>
+                    <li><i class="fas fa-chevron-right text-xs"></i></li>
+                    <li class="text-gray-900">Image Compressor</li>
+                </ol>
+            </nav>
+
+            <!-- Page Header -->
+            <div class="text-center mb-10">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                    <i class="fas fa-compress-alt text-blue-600 mr-3"></i>
+                    Image Compressor
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Compress JPEG, PNG, and WebP images online for free. Reduce file size while maintaining quality with our advanced compression algorithm.
+                </p>
+            </div>
+
+            <!-- Tool Interface -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <!-- Upload Area -->
+                <div id="uploadArea" class="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-blue-400 transition-colors cursor-pointer">
+                    <div id="uploadContent">
+                        <i class="fas fa-cloud-upload-alt text-6xl text-gray-400 mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-700 mb-2">Drop your images here</h3>
+                        <p class="text-gray-500 mb-4">or click to browse and upload</p>
+                        <button id="browseBtn" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-folder-open mr-2"></i>Browse Files
+                        </button>
+                        <input type="file" id="fileInput" multiple accept="image/*" class="hidden">
+                        <p class="text-sm text-gray-400 mt-4">Supports: JPEG, PNG, WebP • Max size: 10MB per image</p>
+                    </div>
+                </div>
+
+                <!-- Compression Settings -->
+                <div id="compressionSettings" class="hidden mt-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Compression Settings</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Quality: <span id="qualityValue" class="text-blue-600 font-semibold">80%</span>
+                            </label>
+                            <input type="range" id="qualitySlider" min="10" max="100" value="80" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                <span>Lower Size</span>
+                                <span>Higher Quality</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Output Format</label>
+                            <select id="outputFormat" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                <option value="original">Keep Original Format</option>
+                                <option value="jpeg">JPEG</option>
+                                <option value="png">PNG</option>
+                                <option value="webp">WebP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex flex-wrap gap-3">
+                        <button id="compressBtn" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                            <i class="fas fa-compress mr-2"></i>Compress Images
+                        </button>
+                        <button id="downloadAllBtn" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors hidden">
+                            <i class="fas fa-download mr-2"></i>Download All
+                        </button>
+                        <button id="clearBtn" class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-trash mr-2"></i>Clear All
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="progressContainer" class="hidden mt-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-medium text-gray-700">Processing Images</span>
+                        <span id="progressText" class="text-sm text-gray-500">0%</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="progressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Results Grid -->
+                <div id="resultsGrid" class="hidden mt-8">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Compression Results</h3>
+                    <div id="imageResults" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">Why Choose Our Image Compressor?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="text-center p-4">
+                        <i class="fas fa-shield-alt text-3xl text-green-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800 mb-2">100% Secure</h3>
+                        <p class="text-gray-600 text-sm">All processing happens in your browser. Your images never leave your device.</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <i class="fas fa-lightning-bolt text-3xl text-yellow-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800 mb-2">Lightning Fast</h3>
+                        <p class="text-gray-600 text-sm">Advanced compression algorithms provide instant results with optimal quality.</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <i class="fas fa-mobile-alt text-3xl text-blue-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800 mb-2">Mobile Friendly</h3>
+                        <p class="text-gray-600 text-sm">Works perfectly on all devices - desktop, tablet, and mobile.</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <i class="fas fa-layer-group text-3xl text-purple-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800 mb-2">Batch Processing</h3>
+                        <p class="text-gray-600 text-sm">Compress multiple images at once to save time and effort.</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <i class="fas fa-sliders-h text-3xl text-red-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800 mb-2">Quality Control</h3>
+                        <p class="text-gray-600 text-sm">Adjust compression quality to find the perfect balance for your needs.</p>
+                    </div>
+                    <div class="text-center p-4">
+                        <i class="fas fa-file-export text-3xl text-indigo-600 mb-3"></i>
+                        <h3 class="font-semibold text-gray-800 mb-2">Multiple Formats</h3>
+                        <p class="text-gray-600 text-sm">Support for JPEG, PNG, WebP with format conversion options.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How to Use Section -->
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h2 class="text-2xl font-bold text-gray-900 mb-6">How to Use Image Compressor</h2>
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm mr-4">1</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-1">Upload Images</h3>
+                            <p class="text-gray-600">Drag and drop your images or click to browse. You can upload multiple images at once.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm mr-4">2</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-1">Adjust Settings</h3>
+                            <p class="text-gray-600">Choose your desired quality level and output format. Preview the compression ratio in real-time.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm mr-4">3</div>
+                        <div>
+                            <h3 class="font-semibold text-gray-800 mb-1">Compress & Download</h3>
+                            <p class="text-gray-600">Click compress to process your images and download individual files or all at once.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Ad Banner -->
+        <div class="ad-right ad-banner w-32 h-screen sticky top-0 hidden lg:flex">
+            <div class="transform rotate-90 whitespace-nowrap">
+                <i class="fas fa-ad mr-2"></i>
+                AdMob Right (160x600)
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Ad Banner -->
+    <div class="ad-banner h-20 w-full mt-8">
+        <i class="fas fa-ad mr-2"></i>
+        AdMob Banner Ad - Bottom Position (728x90)
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p>&copy; 2024 Web Application Tools. All rights reserved.</p>
+                <div class="mt-2 space-x-4">
+                    <a href="/privacy" class="text-gray-300 hover:text-white">Privacy Policy</a>
+                    <a href="/terms" class="text-gray-300 hover:text-white">Terms of Service</a>
+                    <a href="/contact" class="text-gray-300 hover:text-white">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        class ImageCompressor {
+            constructor() {
+                this.uploadedFiles = [];
+                this.compressedImages = [];
+                this.initializeEventListeners();
+            }
+
+            initializeEventListeners() {
+                const uploadArea = document.getElementById('uploadArea');
+                const fileInput = document.getElementById('fileInput');
+                const browseBtn = document.getElementById('browseBtn');
+                const qualitySlider = document.getElementById('qualitySlider');
+                const compressBtn = document.getElementById('compressBtn');
+                const downloadAllBtn = document.getElementById('downloadAllBtn');
+                const clearBtn = document.getElementById('clearBtn');
+
+                // File upload handlers
+                uploadArea.addEventListener('click', () => fileInput.click());
+                browseBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    fileInput.click();
+                });
+                fileInput.addEventListener('change', (e) => this.handleFileSelect(e.target.files));
+
+                // Drag and drop handlers
+                uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.add('drag-over');
+                });
+                uploadArea.addEventListener('dragleave', () => {
+                    uploadArea.classList.remove('drag-over');
+                });
+                uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.remove('drag-over');
+                    this.handleFileSelect(e.dataTransfer.files);
+                });
+
+                // Control handlers
+                qualitySlider.addEventListener('input', (e) => {
+                    document.getElementById('qualityValue').textContent = e.target.value + '%';
+                });
+                compressBtn.addEventListener('click', () => this.compressImages());
+                downloadAllBtn.addEventListener('click', () => this.downloadAll());
+                clearBtn.addEventListener('click', () => this.clearAll());
+            }
+
+            handleFileSelect(files) {
+                const validFiles = Array.from(files).filter(file => 
+                    file.type.startsWith('image/') && file.size <= 10 * 1024 * 1024
+                );
+
+                if (validFiles.length === 0) {
+                    alert('Please select valid image files (max 10MB each)');
+                    return;
+                }
+
+                this.uploadedFiles = [...this.uploadedFiles, ...validFiles];
+                this.updateUploadArea();
+                this.showCompressionSettings();
+            }
+
+            updateUploadArea() {
+                const uploadContent = document.getElementById('uploadContent');
+                if (this.uploadedFiles.length > 0) {
+                    uploadContent.innerHTML = `
+                        <i class="fas fa-images text-4xl text-green-600 mb-2"></i>
+                        <p class="text-lg font-semibold text-gray-700">${this.uploadedFiles.length} image(s) selected</p>
+                        <p class="text-gray-500 text-sm">Click to add more images</p>
+                    `;
+                }
+            }
+
+            showCompressionSettings() {
+                document.getElementById('compressionSettings').classList.remove('hidden');
+            }
+
+            async compressImages() {
+                if (this.uploadedFiles.length === 0) return;
+
+                const progressContainer = document.getElementById('progressContainer');
+                const progressBar = document.getElementById('progressBar');
+                const progressText = document.getElementById('progressText');
+                const resultsGrid = document.getElementById('resultsGrid');
+                const imageResults = document.getElementById('imageResults');
+
+                progressContainer.classList.remove('hidden');
+                resultsGrid.classList.add('hidden');
+                imageResults.innerHTML = '';
+                this.compressedImages = [];
+
+                const quality = parseInt(document.getElementById('qualitySlider').value) / 100;
+                const outputFormat = document.getElementById('outputFormat').value;
+
+                for (let i = 0; i < this.uploadedFiles.length; i++) {
+                    const file = this.uploadedFiles[i];
+                    const progress = ((i + 1) / this.uploadedFiles.length) * 100;
+                    
+                    progressBar.style.width = progress + '%';
+                    progressText.textContent = Math.round(progress) + '%';
+
+                    try {
+                        const compressedResult = await this.compressImage(file, quality, outputFormat);
+                        this.compressedImages.push(compressedResult);
+                        this.addImageResult(compressedResult, file);
+                    } catch (error) {
+                        console.error('Error compressing image:', error);
+                    }
+                }
+
+                progressContainer.classList.add('hidden');
+                resultsGrid.classList.remove('hidden');
+                document.getElementById('downloadAllBtn').classList.remove('hidden');
+            }
+
+            compressImage(file, quality, outputFormat) {
+                return new Promise((resolve) => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const img = new Image();
+
+                    img.onload = () => {
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+
+                        let mimeType = file.type;
+                        let extension = file.name.split('.').pop();
+
+                        if (outputFormat !== 'original') {
+                            if (outputFormat === 'jpeg') {
+                                mimeType = 'image/jpeg';
+                                extension = 'jpg';
+                            } else if (outputFormat === 'png') {
+                                mimeType = 'image/png';
+                                extension = 'png';
+                            } else if (outputFormat === 'webp') {
+                                mimeType = 'image/webp';
+                                extension = 'webp';
+                            }
+                        }
+
+                        canvas.toBlob((blob) => {
+                            const compressedFile = new File([blob], 
+                                file.name.replace(/\.[^/.]+$/, `.${extension}`), 
+                                { type: mimeType }
+                            );
+
+                            resolve({
+                                original: file,
+                                compressed: compressedFile,
+                                originalSize: file.size,
+                                compressedSize: blob.size,
+                                compressionRatio: ((file.size - blob.size) / file.size * 100).toFixed(1),
+                                dataUrl: URL.createObjectURL(blob)
+                            });
+                        }, mimeType, quality);
+                    };
+
+                    img.src = URL.createObjectURL(file);
+                });
+            }
+
+            addImageResult(result, originalFile) {
+                const imageResults = document.getElementById('imageResults');
+                const div = document.createElement('div');
+                div.className = 'bg-gray-50 rounded-lg p-4';
+                
+                div.innerHTML = `
+                    <div class="compressed-image-container mb-3">
+                        <img src="${result.dataUrl}" alt="Compressed image" class="w-full h-32 object-cover rounded">
+                        <div class="image-overlay">
+                            <button onclick="this.closest('.compressed-image-container').nextElementSibling.querySelector('.download-btn').click()" 
+                                    class="bg-white text-gray-800 px-3 py-1 rounded text-sm hover:bg-gray-100">
+                                <i class="fas fa-download mr-1"></i>Download
+                            </button>
+                        </div>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <p class="font-medium text-gray-900 truncate">${originalFile.name}</p>
+                        <div class="flex justify-between text-gray-600">
+                            <span>Original:</span>
+                            <span>${this.formatFileSize(result.originalSize)}</span>
+                        </div>
+                        <div class="flex justify-between text-gray-600">
+                            <span>Compressed:</span>
+                            <span>${this.formatFileSize(result.compressedSize)}</span>
+                        </div>
+                        <div class="flex justify-between font-medium">
+                            <span>Saved:</span>
+                            <span class="text-green-600">${result.compressionRatio}%</span>
+                        </div>
+                        <button class="download-btn w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition-colors" 
+                                onclick="window.imageCompressor.downloadImage('${result.dataUrl}', '${result.compressed.name}')">
+                            <i class="fas fa-download mr-2"></i>Download
+                        </button>
+                    </div>
+                `;
+                
+                imageResults.appendChild(div);
+            }
+
+            downloadImage(dataUrl, filename) {
+                const a = document.createElement('a');
+                a.href = dataUrl;
+                a.download = filename;
+                a.click();
+            }
+
+            async downloadAll() {
+                if (this.compressedImages.length === 0) return;
+
+                // For simplicity, download images one by one
+                // In a real implementation, you might want to create a ZIP file
+                for (const result of this.compressedImages) {
+                    this.downloadImage(result.dataUrl, result.compressed.name);
+                    await new Promise(resolve => setTimeout(resolve, 500)); // Small delay between downloads
+                }
+            }
+
+            clearAll() {
+                this.uploadedFiles = [];
+                this.compressedImages = [];
+                document.getElementById('uploadContent').innerHTML = `
+                    <i class="fas fa-cloud-upload-alt text-6xl text-gray-400 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-700 mb-2">Drop your images here</h3>
+                    <p class="text-gray-500 mb-4">or click to browse and upload</p>
+                    <button id="browseBtn" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-folder-open mr-2"></i>Browse Files
+                    </button>
+                    <input type="file" id="fileInput" multiple accept="image/*" class="hidden">
+                    <p class="text-sm text-gray-400 mt-4">Supports: JPEG, PNG, WebP • Max size: 10MB per image</p>
+                `;
+                document.getElementById('compressionSettings').classList.add('hidden');
+                document.getElementById('progressContainer').classList.add('hidden');
+                document.getElementById('resultsGrid').classList.add('hidden');
+                document.getElementById('downloadAllBtn').classList.add('hidden');
+                
+                // Re-initialize event listeners for new elements
+                this.initializeEventListeners();
+            }
+
+            formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+        }
+
+        // Initialize the image compressor
+        window.imageCompressor = new ImageCompressor();
+
+        // SEO and Analytics tracking
+        document.addEventListener('DOMContentLoaded', function() {
+            // Track page view
+            if (typeof gtag !== 'undefined') {
+                gtag('config', 'GA_MEASUREMENT_ID', {
+                    page_title: 'Image Compressor Tool',
+                    page_location: window.location.href
+                });
+            }
+        });
+    </script>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Image Compressor",
+        "description": "Compress JPEG, PNG, WebP images online for free. Reduce file size while maintaining quality.",
+        "url": "https://your-domain.com/image-compressor",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Web Application Tools"
+        }
+    }
+    </script>
+</body>
+</html>
