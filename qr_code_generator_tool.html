@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Create Custom QR Codes | Web Tools</title>
+    <meta name="description" content="Generate custom QR codes instantly. Create QR codes for URLs, text, contact info with customizable colors, sizes, and error correction. Download as PNG or SVG.">
+    <meta name="keywords" content="QR code generator, create QR code, custom QR code, QR code maker, free QR generator">
+    
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    
+    <style>
+        .ad-banner {
+            background: linear-gradient(45deg, #f0f9ff, #e0f2fe);
+            border: 2px dashed #0ea5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0369a1;
+            font-weight: 600;
+            min-height: 90px;
+        }
+        
+        .side-ad {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 120px;
+            height: 600px;
+            z-index: 1000;
+        }
+        
+        .side-ad.left { left: 10px; }
+        .side-ad.right { right: 10px; }
+        
+        .qr-preview {
+            border: 3px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .tool-container {
+            margin: 0 140px;
+        }
+        
+        @media (max-width: 1024px) {
+            .side-ad { display: none; }
+            .tool-container { margin: 0 20px; }
+        }
+        
+        .input-group {
+            position: relative;
+        }
+        
+        .input-group i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+        }
+        
+        .input-group input, .input-group select, .input-group textarea {
+            padding-left: 40px;
+        }
+        
+        .color-picker {
+            width: 50px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid #d1d5db;
+            cursor: pointer;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .btn-download {
+            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(79, 70, 229, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Top Ad Banner -->
+    <div class="ad-banner">
+        <i class="fas fa-ad mr-2"></i>
+        AdMob Banner Ad (Top) - 728x90
+    </div>
+    
+    <!-- Side Ad Banners -->
+    <div class="side-ad left ad-banner">
+        <div class="text-center text-sm">
+            <i class="fas fa-ad block mb-2"></i>
+            Left Banner<br>120x600
+        </div>
+    </div>
+    
+    <div class="side-ad right ad-banner">
+        <div class="text-center text-sm">
+            <i class="fas fa-ad block mb-2"></i>
+            Right Banner<br>120x600
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header class="gradient-bg text-white py-6">
+        <div class="tool-container">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold flex items-center">
+                        <i class="fas fa-qrcode mr-3"></i>
+                        QR Code Generator
+                    </h1>
+                    <p class="text-blue-100 mt-2">Create custom QR codes instantly with advanced options</p>
+                </div>
+                <a href="/" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-4 py-2 rounded-lg transition-all">
+                    <i class="fas fa-home mr-2"></i>Home
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="py-8">
+        <div class="tool-container">
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Input Section -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-semibold mb-6 flex items-center text-gray-800">
+                        <i class="fas fa-edit mr-3 text-blue-600"></i>
+                        QR Code Settings
+                    </h2>
+                    
+                    <!-- Text Input -->
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                        <div class="input-group">
+                            <i class="fas fa-keyboard"></i>
+                            <textarea 
+                                id="qrText" 
+                                placeholder="Enter text, URL, or any content..." 
+                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                                rows="3"
+                            >https://example.com</textarea>
+                        </div>
+                        <div id="urlStatus" class="mt-2 text-sm hidden"></div>
+                    </div>
+                    
+                    <!-- Size Selection -->
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Size</label>
+                            <div class="input-group">
+                                <i class="fas fa-expand-arrows-alt"></i>
+                                <select id="qrSize" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="200">200x200 px</option>
+                                    <option value="300" selected>300x300 px</option>
+                                    <option value="400">400x400 px</option>
+                                    <option value="500">500x500 px</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Error Correction</label>
+                            <div class="input-group">
+                                <i class="fas fa-shield-alt"></i>
+                                <select id="errorCorrection" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                    <option value="L">Low (7%)</option>
+                                    <option value="M" selected>Medium (15%)</option>
+                                    <option value="Q">Quartile (25%)</option>
+                                    <option value="H">High (30%)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Color Selection -->
+                    <div class="grid md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Foreground Color</label>
+                            <div class="flex items-center space-x-3">
+                                <input type="color" id="fgColor" value="#000000" class="color-picker">
+                                <span class="text-gray-600 font-mono text-sm" id="fgColorValue">#000000</span>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Background Color</label>
+                            <div class="flex items-center space-x-3">
+                                <input type="color" id="bgColor" value="#ffffff" class="color-picker">
+                                <span class="text-gray-600 font-mono text-sm" id="bgColorValue">#ffffff</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Generate Button -->
+                    <button 
+                        id="generateBtn" 
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center"
+                    >
+                        <i class="fas fa-magic mr-2"></i>
+                        Generate QR Code
+                    </button>
+                </div>
+                
+                <!-- Preview Section -->
+                <div class="bg-white rounded-xl shadow-lg p-6">
+                    <h2 class="text-2xl font-semibold mb-6 flex items-center text-gray-800">
+                        <i class="fas fa-eye mr-3 text-green-600"></i>
+                        Preview & Download
+                    </h2>
+                    
+                    <!-- QR Code Preview -->
+                    <div class="text-center mb-6">
+                        <div id="qrPreview" class="qr-preview inline-block">
+                            <canvas id="qrCanvas"></canvas>
+                        </div>
+                        <p class="text-gray-500 mt-3 text-sm">QR code will appear here</p>
+                    </div>
+                    
+                    <!-- Download Buttons -->
+                    <div class="space-y-3">
+                        <button 
+                            id="downloadPNG" 
+                            class="w-full btn-download text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled
+                        >
+                            <i class="fas fa-download mr-2"></i>
+                            Download PNG
+                        </button>
+                        
+                        <button 
+                            id="downloadSVG" 
+                            class="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-all flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled
+                        >
+                            <i class="fas fa-vector-square mr-2"></i>
+                            Download SVG
+                        </button>
+                    </div>
+                    
+                    <!-- QR Info -->
+                    <div id="qrInfo" class="mt-6 p-4 bg-gray-50 rounded-lg hidden">
+                        <h4 class="font-medium text-gray-800 mb-2">QR Code Information</h4>
+                        <div class="text-sm text-gray-600 space-y-1">
+                            <div>Size: <span id="infoSize">-</span></div>
+                            <div>Error Correction: <span id="infoError">-</span></div>
+                            <div>Content Length: <span id="infoLength">-</span> characters</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Features Section -->
+            <div class="mt-12 bg-white rounded-xl shadow-lg p-8">
+                <h2 class="text-2xl font-semibold mb-6 text-center text-gray-800">
+                    <i class="fas fa-star mr-3 text-yellow-500"></i>
+                    Features
+                </h2>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-bolt text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Instant Generation</h3>
+                        <p class="text-gray-600 text-sm">Generate QR codes instantly as you type</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-palette text-2xl text-green-600"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Full Customization</h3>
+                        <p class="text-gray-600 text-sm">Customize colors, sizes, and error correction</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-download text-2xl text-purple-600"></i>
+                        </div>
+                        <h3 class="font-semibold text-gray-800 mb-2">Multiple Formats</h3>
+                        <p class="text-gray-600 text-sm">Download as PNG or SVG format</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Bottom Ad Banner -->
+    <div class="ad-banner mt-8">
+        <i class="fas fa-ad mr-2"></i>
+        AdMob Banner Ad (Bottom) - 728x90
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="tool-container text-center">
+            <p>&copy; 2024 Web Application Tools. All rights reserved.</p>
+            <p class="text-gray-400 text-sm mt-2">Professional QR Code Generator - Free & Easy to Use</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Elements
+        const qrText = document.getElementById('qrText');
+        const qrSize = document.getElementById('qrSize');
+        const errorCorrection = document.getElementById('errorCorrection');
+        const fgColor = document.getElementById('fgColor');
+        const bgColor = document.getElementById('bgColor');
+        const fgColorValue = document.getElementById('fgColorValue');
+        const bgColorValue = document.getElementById('bgColorValue');
+        const generateBtn = document.getElementById('generateBtn');
+        const qrCanvas = document.getElementById('qrCanvas');
+        const downloadPNG = document.getElementById('downloadPNG');
+        const downloadSVG = document.getElementById('downloadSVG');
+        const urlStatus = document.getElementById('urlStatus');
+        const qrInfo = document.getElementById('qrInfo');
+        const infoSize = document.getElementById('infoSize');
+        const infoError = document.getElementById('infoError');
+        const infoLength = document.getElementById('infoLength');
+        
+        let currentSVG = '';
+        
+        // URL validation
+        function isValidURL(string) {
+            try {
+                new URL(string);
+                return true;
+            } catch (_) {
+                return false;
+            }
+        }
+        
+        // Update color value displays
+        fgColor.addEventListener('input', (e) => {
+            fgColorValue.textContent = e.target.value;
+            generateQRCode();
+        });
+        
+        bgColor.addEventListener('input', (e) => {
+            bgColorValue.textContent = e.target.value;
+            generateQRCode();
+        });
+        
+        // Validate URL input
+        qrText.addEventListener('input', () => {
+            const text = qrText.value.trim();
+            if (text) {
+                if (isValidURL(text)) {
+                    urlStatus.className = 'mt-2 text-sm text-green-600';
+                    urlStatus.innerHTML = '<i class="fas fa-check-circle mr-1"></i>Valid URL';
+                    urlStatus.classList.remove('hidden');
+                } else if (text.includes('http') || text.includes('www')) {
+                    urlStatus.className = 'mt-2 text-sm text-red-600';
+                    urlStatus.innerHTML = '<i class="fas fa-exclamation-circle mr-1"></i>Invalid URL format';
+                    urlStatus.classList.remove('hidden');
+                } else {
+                    urlStatus.classList.add('hidden');
+                }
+            } else {
+                urlStatus.classList.add('hidden');
+            }
+            generateQRCode();
+        });
+        
+        // Generate QR Code
+        async function generateQRCode() {
+            const text = qrText.value.trim();
+            if (!text) {
+                downloadPNG.disabled = true;
+                downloadSVG.disabled = true;
+                qrInfo.classList.add('hidden');
+                return;
+            }
+            
+            const size = parseInt(qrSize.value);
+            const errorCorrectionLevel = errorCorrection.value;
+            
+            try {
+                // Generate PNG
+                await QRCode.toCanvas(qrCanvas, text, {
+                    width: size,
+                    height: size,
+                    color: {
+                        dark: fgColor.value,
+                        light: bgColor.value
+                    },
+                    errorCorrectionLevel: errorCorrectionLevel,
+                    margin: 2
+                });
+                
+                // Generate SVG
+                currentSVG = await QRCode.toString(text, {
+                    type: 'svg',
+                    width: size,
+                    height: size,
+                    color: {
+                        dark: fgColor.value,
+                        light: bgColor.value
+                    },
+                    errorCorrectionLevel: errorCorrectionLevel,
+                    margin: 2
+                });
+                
+                // Enable download buttons
+                downloadPNG.disabled = false;
+                downloadSVG.disabled = false;
+                
+                // Update info
+                infoSize.textContent = `${size}x${size} px`;
+                infoError.textContent = `${errorCorrectionLevel} (${getErrorCorrectionName(errorCorrectionLevel)})`;
+                infoLength.textContent = text.length;
+                qrInfo.classList.remove('hidden');
+                
+            } catch (error) {
+                console.error('QR Code generation failed:', error);
+                downloadPNG.disabled = true;
+                downloadSVG.disabled = true;
+                qrInfo.classList.add('hidden');
+            }
+        }
+        
+        function getErrorCorrectionName(level) {
+            const names = {
+                'L': 'Low 7%',
+                'M': 'Medium 15%',
+                'Q': 'Quartile 25%',
+                'H': 'High 30%'
+            };
+            return names[level] || 'Medium 15%';
+        }
+        
+        // Download PNG
+        downloadPNG.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'qrcode.png';
+            link.href = qrCanvas.toDataURL();
+            link.click();
+        });
+        
+        // Download SVG
+        downloadSVG.addEventListener('click', () => {
+            const blob = new Blob([currentSVG], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.download = 'qrcode.svg';
+            link.href = url;
+            link.click();
+            URL.revokeObjectURL(url);
+        });
+        
+        // Event listeners
+        generateBtn.addEventListener('click', generateQRCode);
+        qrSize.addEventListener('change', generateQRCode);
+        errorCorrection.addEventListener('change', generateQRCode);
+        
+        // Generate initial QR code
+        generateQRCode();
+        
+        // Auto-generate on input change
+        let debounceTimer;
+        qrText.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(generateQRCode, 300);
+        });
+    </script>
+</body>
+</html>
